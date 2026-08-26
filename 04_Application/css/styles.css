@@ -553,3 +553,63 @@ body.high-contrast {
         grid-template-columns: 1fr 1fr;
     }
 }
+/* Phase 3B: read-only lesson catalog */
+.lessons-panel {
+    margin: 1rem 0 1.5rem;
+}
+
+.lesson-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.lesson-card {
+    display: grid;
+    align-content: start;
+    gap: 0.55rem;
+    min-height: 12rem;
+    border: 0.1rem solid var(--border);
+    border-radius: 0.7rem;
+    padding: 1rem;
+    background: var(--surface);
+    color: var(--ink);
+    text-align: left;
+}
+
+.lesson-card:hover,
+.lesson-card:focus-visible,
+.lesson-card.selected {
+    border-color: var(--sage-dark);
+    background: var(--sage-soft);
+}
+
+.lesson-card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.lesson-card-summary {
+    color: var(--muted-ink);
+    font-weight: 400;
+}
+
+.lesson-meta {
+    color: var(--muted-ink);
+    font-weight: 700;
+}
+
+.lesson-preview {
+    margin-top: 1.25rem;
+    border: 0.1rem solid var(--border);
+    border-radius: 0.7rem;
+    padding: 1.1rem;
+    background: var(--surface);
+}
+
+@media (max-width: 700px) {
+    .lesson-grid {
+        grid-template-columns: 1fr;
+    }
+}

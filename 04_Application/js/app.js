@@ -5,6 +5,8 @@
     const LEGACY_STORAGE_KEY = 'techsavvysage-icon-guide-progress-v1';
     const state = {
         icons: [],
+        lessons: [],
+        selectedLessonId: null,
         filteredIcons: [],
         viewed: new Set(),
         practiced: new Set(),
@@ -232,6 +234,59 @@
         elements.emptyState.hidden = iconsToRender.length !== 0;
     }
 
+    function findLesson(id) {
+        return state.lessons.find(function (lesson) {
+            return lesson.id === id;
+        });
+    }
+
+    function createLessonCard(lesson) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'lesson-card';
+        button.dataset.lessonId = lesson.id;
+        button.setAttribute('aria-label', 'Lesson ' + lesson.order + '. ' + lesson.title + '. ' + lesson.estimated_minutes + ' minutes.');
+        button.innerHTML =
+            '<span class="detail-category">Lesson ' + lesson.order + '</span>' +
+            '<span class="lesson-card-title">' + escapeHtml(lesson.title) + '</span>' +
+            '<span class="lesson-card-summary">' + escapeHtml(lesson.summary) + '</span>' +
+            '<span class="lesson-meta">' + lesson.estimated_minutes + ' minutes · ' + lesson.steps.length + ' icon steps</span>';
+
+        if (state.selectedLessonId === lesson.id) {
+            button.classList.add('selected');
+            button.setAttribute('aria-current', 'true');
+        }
+
+        return button;
+    }
+
+    function renderLessonCatalog() {
+        elements.lessonGrid.innerHTML = '';
+
+        state.lessons.forEach(function (lesson) {
+            elements.lessonGrid.appendChild(createLessonCard(lesson));
+        });
+
+        elements.lessonCount.textContent = state.lessons.length + ' lessons';
+        elements.lessonsEmpty.hidden = state.lessons.length !== 0;
+    }
+
+    function showLessonPreview(lesson) {
+        if (!lesson) {
+            elements.lessonPreview.hidden = true;
+            return;
+        }
+
+        state.selectedLessonId = lesson.id;
+        renderLessonCatalog();
+        elements.lessonPreviewNumber.textContent = 'Lesson ' + lesson.order;
+        elements.lessonPreviewTitle.textContent = lesson.title;
+        elements.lessonPreviewSummary.textContent = lesson.summary;
+        elements.lessonPreviewMeta.textContent = lesson.estimated_minutes + ' minutes · ' + lesson.steps.length + ' icon steps';
+        elements.lessonPreview.hidden = false;
+        setStatus(lesson.title + ' lesson preview selected.');
+    }
+
     function showIconDetail(icon) {
         if (!icon) {
             elements.learnDetail.hidden = true;
@@ -260,7 +315,7 @@
     }
 
     function updateModeButtons() {
-        ['learn', 'practice', 'review'].forEach(function (mode) {
+        ['learn', 'lessons', 'practice', 'review'].forEach(function (mode) {
             const button = elements[mode + 'Mode'];
             const active = state.mode === mode;
             button.classList.toggle('active', active);
@@ -275,6 +330,23 @@
         elements.learnControls.hidden = !learning;
         elements.progressArea.hidden = !learning;
         elements.practiceDetail.hidden = mode !== 'practice';
+        elements.lessonsPanel.hidden = mode !== 'lessons';
+
+        if (mode === 'lessons') {
+            elements.learnDetail.hidden = true;
+            elements.iconChoiceSection.hidden = true;
+            renderLessonCatalog();
+
+            if (state.selectedLessonId) {
+                showLessonPreview(findLesson(state.selectedLessonId));
+            }
+            else {
+                elements.lessonPreview.hidden = true;
+            }
+
+            setStatus('Four guided lessons are available. Choose one to preview.');
+            return;
+        }
 
         if (mode === 'practice') {
             elements.learnDetail.hidden = true;
@@ -440,6 +512,7 @@
         elements.learnMode.addEventListener('click', function () { setMode('learn'); });
         elements.practiceMode.addEventListener('click', function () { setMode('practice'); });
         elements.reviewMode.addEventListener('click', function () { setMode('review'); });
+        elements.lessonsMode.addEventListener('click', function () { setMode('lessons'); });
         elements.iconSearch.addEventListener('input', applyFilters);
         elements.categoryFilter.addEventListener('change', applyFilters);
         elements.readAloud.addEventListener('click', readSelectedAloud);
@@ -483,6 +556,15 @@
             setStatus('Contrast setting updated.');
         });
         elements.resetDisplay.addEventListener('click', resetDisplaySettings);
+        elements.lessonGrid.addEventListener('click', function (event) {
+            const button = event.target.closest('[data-lesson-id]');
+
+            if (!button) {
+                return;
+            }
+
+            showLessonPreview(findLesson(button.dataset.lessonId));
+        });
         elements.iconGrid.addEventListener('click', function (event) {
             const button = event.target.closest('[data-icon-id]');
 
@@ -503,10 +585,13 @@
 
     function captureElements() {
         const ids = [
-            'learn-mode', 'practice-mode', 'review-mode', 'text-size', 'high-contrast',
+            'learn-mode', 'lessons-mode', 'practice-mode', 'review-mode', 'text-size', 'high-contrast',
             'reset-display', 'learn-controls', 'icon-search', 'category-filter',
             'progress-area', 'progress-text', 'learning-progress', 'clear-progress',
-            'result-status', 'learn-detail', 'detail-icon', 'detail-category',
+            'result-status', 'lessons-panel', 'lesson-count', 'lesson-grid',
+            'lessons-empty', 'lesson-preview', 'lesson-preview-number',
+            'lesson-preview-title', 'lesson-preview-summary', 'lesson-preview-meta',
+            'learn-detail', 'detail-icon', 'detail-category',
             'detail-name', 'detail-meaning', 'detail-example', 'detail-caution',
             'read-aloud', 'save-review', 'practice-icon', 'practice-detail',
             'practice-setup', 'session-length', 'start-practice', 'practice-question',
@@ -530,16 +615,23 @@
         applyDisplaySettings();
 
         try {
-            const response = await fetch('04_Application/data/icons.json', { cache: 'no-store' });
+            const responses = await Promise.all([
+                fetch('04_Application/data/icons.json', { cache: 'no-store' }),
+                fetch('04_Application/data/lessons.json', { cache: 'no-store' })
+            ]);
 
-            if (!response.ok) {
-                throw new Error('Icon data could not be loaded.');
+            if (!responses[0].ok || !responses[1].ok) {
+                throw new Error('Icon or lesson data could not be loaded.');
             }
 
-            const data = await response.json();
-            state.icons = data.icons;
-            state.filteredIcons = data.icons.slice();
+            const data = await Promise.all(responses.map(function (response) {
+                return response.json();
+            }));
+            state.icons = data[0].icons;
+            state.lessons = data[1].lessons;
+            state.filteredIcons = data[0].icons.slice();
             buildCategoryOptions();
+            renderLessonCatalog();
             bindEvents();
             updateProgress();
             applyFilters();

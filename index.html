@@ -32,6 +32,7 @@
 
         <nav class="mode-selector" aria-label="Learning mode">
             <button id="learn-mode" class="mode-button active" type="button" aria-pressed="true">Learn</button>
+            <button id="lessons-mode" class="mode-button" type="button" aria-pressed="false">Lessons</button>
             <button id="practice-mode" class="mode-button" type="button" aria-pressed="false">Practice</button>
             <button id="review-mode" class="mode-button" type="button" aria-pressed="false">Saved for review</button>
         </nav>
@@ -77,6 +78,26 @@
         </section>
 
         <p id="result-status" class="status-message" role="status" aria-live="polite"></p>
+
+        <section id="lessons-panel" class="lessons-panel" aria-labelledby="lessons-heading" hidden>
+            <div class="section-heading-row">
+                <div>
+                    <p class="detail-category">Guided learning</p>
+                    <h2 id="lessons-heading">Choose a lesson</h2>
+                </div>
+                <span id="lesson-count">4 lessons</span>
+            </div>
+            <p>Preview a short lesson before beginning. Lesson progress will be added in the next Phase 3 increment.</p>
+            <div id="lesson-grid" class="lesson-grid"></div>
+            <p id="lessons-empty" class="empty-state" hidden>No lessons are available.</p>
+            <section id="lesson-preview" class="lesson-preview" aria-labelledby="lesson-preview-title" hidden>
+                <p id="lesson-preview-number" class="detail-category"></p>
+                <h3 id="lesson-preview-title"></h3>
+                <p id="lesson-preview-summary"></p>
+                <p id="lesson-preview-meta" class="lesson-meta"></p>
+                <p class="detail-secondary">This preview is read-only. Guided step controls will be added in the next increment.</p>
+            </section>
+        </section>
 
         <section id="learn-detail" class="detail-panel" aria-labelledby="detail-name">
             <div id="detail-icon" class="large-icon" aria-hidden="true"></div>
