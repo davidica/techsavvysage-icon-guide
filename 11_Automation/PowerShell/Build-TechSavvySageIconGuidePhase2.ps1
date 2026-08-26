@@ -15,7 +15,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 $Script:UtilityName = 'TechSavvySage Icon Guide Phase 2 Builder'
-$Script:UtilityVersion = '0.2.0'
+$Script:UtilityVersion = '0.2.1'
 $Script:ExpectedRepositoryName = 'techsavvysage-icon-guide'
 $Script:CreatedFolders = 0
 $Script:ExistingFolders = 0
@@ -1187,7 +1187,20 @@ window.IconGuideIcons = (function () {
             }
 
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('service-worker.js').catch(function () {
+                let refreshingForUpdate = false;
+
+                navigator.serviceWorker.addEventListener('controllerchange', function () {
+                    if (refreshingForUpdate) {
+                        return;
+                    }
+
+                    refreshingForUpdate = true;
+                    window.location.reload();
+                });
+
+                navigator.serviceWorker.register('service-worker.js').then(function (registration) {
+                    registration.update();
+                }).catch(function () {
                     // The utility remains functional if offline support is unavailable.
                 });
             }
@@ -1234,7 +1247,7 @@ window.IconGuideIcons = (function () {
         $ServiceWorkerContent = @'
 'use strict';
 
-const CACHE_NAME = 'techsavvysage-icon-guide-v0.2.0';
+const CACHE_NAME = 'techsavvysage-icon-guide-v0.2.1';
 const CORE_ASSETS = [
     './',
     './index.html',
@@ -1249,7 +1262,15 @@ const CORE_ASSETS = [
 
 self.addEventListener('install', function (event) {
     event.waitUntil(caches.open(CACHE_NAME).then(function (cache) {
-        return cache.addAll(CORE_ASSETS);
+        return Promise.all(CORE_ASSETS.map(function (asset) {
+            return fetch(asset, { cache: 'reload' }).then(function (response) {
+                if (!response.ok) {
+                    throw new Error('Unable to cache ' + asset);
+                }
+
+                return cache.put(asset, response);
+            });
+        }));
     }));
     self.skipWaiting();
 });
@@ -1265,13 +1286,44 @@ self.addEventListener('activate', function (event) {
     self.clients.claim();
 });
 
+self.addEventListener('message', function (event) {
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+        self.skipWaiting();
+    }
+});
+
 self.addEventListener('fetch', function (event) {
     if (event.request.method !== 'GET') {
         return;
     }
 
-    event.respondWith(caches.match(event.request).then(function (cachedResponse) {
-        return cachedResponse || fetch(event.request);
+    const requestUrl = new URL(event.request.url);
+
+    if (requestUrl.origin !== self.location.origin) {
+        return;
+    }
+
+    event.respondWith(fetch(event.request).then(function (networkResponse) {
+        if (networkResponse.ok) {
+            const responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME).then(function (cache) {
+                cache.put(event.request, responseToCache);
+            });
+        }
+
+        return networkResponse;
+    }).catch(function () {
+        return caches.match(event.request).then(function (cachedResponse) {
+            if (cachedResponse) {
+                return cachedResponse;
+            }
+
+            if (event.request.mode === 'navigate') {
+                return caches.match('./index.html');
+            }
+
+            return Response.error();
+        });
     }));
 });
 '@

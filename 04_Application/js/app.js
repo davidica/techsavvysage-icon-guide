@@ -551,7 +551,20 @@
             }
 
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('service-worker.js').catch(function () {
+                let refreshingForUpdate = false;
+
+                navigator.serviceWorker.addEventListener('controllerchange', function () {
+                    if (refreshingForUpdate) {
+                        return;
+                    }
+
+                    refreshingForUpdate = true;
+                    window.location.reload();
+                });
+
+                navigator.serviceWorker.register('service-worker.js').then(function (registration) {
+                    registration.update();
+                }).catch(function () {
                     // The utility remains functional if offline support is unavailable.
                 });
             }
