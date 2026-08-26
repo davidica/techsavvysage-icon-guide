@@ -80,14 +80,14 @@
         <p id="result-status" class="status-message" role="status" aria-live="polite"></p>
 
         <section id="lessons-panel" class="lessons-panel" aria-labelledby="lessons-heading" hidden>
-            <div class="section-heading-row">
+            <div id="lesson-catalog-header" class="section-heading-row">
                 <div>
                     <p class="detail-category">Guided learning</p>
                     <h2 id="lessons-heading">Choose a lesson</h2>
                 </div>
                 <span id="lesson-count">4 lessons</span>
             </div>
-            <p>Preview a short lesson before beginning. Lesson progress will be added in the next Phase 3 increment.</p>
+            <p id="lesson-catalog-intro">Preview a short lesson, then begin when you are ready. Progress in Phase 3C remains in the current session only.</p>
             <div id="lesson-grid" class="lesson-grid"></div>
             <p id="lessons-empty" class="empty-state" hidden>No lessons are available.</p>
             <section id="lesson-preview" class="lesson-preview" aria-labelledby="lesson-preview-title" hidden>
@@ -95,7 +95,31 @@
                 <h3 id="lesson-preview-title"></h3>
                 <p id="lesson-preview-summary"></p>
                 <p id="lesson-preview-meta" class="lesson-meta"></p>
-                <p class="detail-secondary">This preview is read-only. Guided step controls will be added in the next increment.</p>
+                <button id="start-lesson" class="primary-button" type="button">Start lesson</button>
+            </section>
+
+            <section id="lesson-runner" class="lesson-runner" aria-labelledby="lesson-step-heading" hidden>
+                <button id="exit-lesson" class="text-button" type="button">Back to lesson choices</button>
+                <div class="lesson-progress-row">
+                    <span id="lesson-progress-text">Step 1 of 1</span>
+                    <progress id="lesson-progress" value="1" max="1">Step 1 of 1</progress>
+                </div>
+                <div class="lesson-step-card">
+                    <div id="lesson-step-icon" class="large-icon lesson-step-icon" aria-hidden="true"></div>
+                    <div class="lesson-step-copy">
+                        <p id="lesson-step-label" class="detail-category"></p>
+                        <h3 id="lesson-step-heading" tabindex="-1"></h3>
+                        <p id="lesson-step-instruction"></p>
+                        <p id="lesson-step-practice" class="detail-secondary">
+                            <strong>Try this:</strong>
+                            <span id="lesson-step-prompt"></span>
+                        </p>
+                        <div class="lesson-navigation">
+                            <button id="lesson-previous" class="secondary-button" type="button">Previous step</button>
+                            <button id="lesson-next" class="primary-button" type="button">Next step</button>
+                        </div>
+                    </div>
+                </div>
             </section>
         </section>
 

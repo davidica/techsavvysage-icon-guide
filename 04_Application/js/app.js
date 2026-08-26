@@ -7,6 +7,9 @@
         icons: [],
         lessons: [],
         selectedLessonId: null,
+        activeLessonId: null,
+        lessonStepIndex: 0,
+        lessonSessionComplete: false,
         filteredIcons: [],
         viewed: new Set(),
         practiced: new Set(),
@@ -283,8 +286,128 @@
         elements.lessonPreviewTitle.textContent = lesson.title;
         elements.lessonPreviewSummary.textContent = lesson.summary;
         elements.lessonPreviewMeta.textContent = lesson.estimated_minutes + ' minutes · ' + lesson.steps.length + ' icon steps';
+        elements.startLesson.dataset.lessonId = lesson.id;
         elements.lessonPreview.hidden = false;
         setStatus(lesson.title + ' lesson preview selected.');
+    }
+
+    function currentLesson() {
+        return findLesson(state.activeLessonId);
+    }
+
+    function showLessonCatalog() {
+        state.activeLessonId = null;
+        state.lessonSessionComplete = false;
+        elements.lessonCatalogHeader.hidden = false;
+        elements.lessonCatalogIntro.hidden = false;
+        elements.lessonGrid.hidden = false;
+        elements.lessonRunner.hidden = true;
+        renderLessonCatalog();
+
+        if (state.selectedLessonId) {
+            showLessonPreview(findLesson(state.selectedLessonId));
+        }
+        else {
+            elements.lessonPreview.hidden = true;
+        }
+    }
+
+    function showLessonStep() {
+        const lesson = currentLesson();
+
+        if (!lesson) {
+            showLessonCatalog();
+            return;
+        }
+
+        const step = lesson.steps[state.lessonStepIndex];
+        const icon = findIcon(step.icon_id);
+        const stepNumber = state.lessonStepIndex + 1;
+        const totalSteps = lesson.steps.length;
+
+        state.lessonSessionComplete = false;
+        elements.lessonStepIcon.hidden = false;
+        elements.lessonStepIcon.innerHTML = window.IconGuideIcons.render(icon.icon, icon.name + ' icon');
+        elements.lessonStepLabel.textContent = 'Lesson ' + lesson.order + ' · Step ' + stepNumber + ' of ' + totalSteps + ' · ' + icon.name;
+        elements.lessonStepHeading.textContent = step.heading;
+        elements.lessonStepInstruction.textContent = step.instruction;
+        elements.lessonStepPrompt.textContent = step.practice_prompt;
+        elements.lessonStepPractice.hidden = false;
+        elements.lessonProgress.max = totalSteps;
+        elements.lessonProgress.value = stepNumber;
+        elements.lessonProgress.textContent = 'Step ' + stepNumber + ' of ' + totalSteps;
+        elements.lessonProgressText.textContent = 'Step ' + stepNumber + ' of ' + totalSteps;
+        elements.lessonPrevious.hidden = false;
+        elements.lessonPrevious.disabled = state.lessonStepIndex === 0;
+        elements.lessonNext.dataset.action = 'advance';
+        elements.lessonNext.textContent = state.lessonStepIndex === totalSteps - 1
+            ? 'Finish lesson'
+            : 'Next step';
+        setStatus(lesson.title + '. Step ' + stepNumber + ' of ' + totalSteps + '.');
+        elements.lessonStepHeading.focus();
+    }
+
+    function startLesson(id) {
+        const lesson = findLesson(id);
+
+        if (!lesson) {
+            setStatus('The selected lesson is unavailable.');
+            return;
+        }
+
+        state.selectedLessonId = lesson.id;
+        state.activeLessonId = lesson.id;
+        state.lessonStepIndex = 0;
+        state.lessonSessionComplete = false;
+        elements.lessonCatalogHeader.hidden = true;
+        elements.lessonCatalogIntro.hidden = true;
+        elements.lessonGrid.hidden = true;
+        elements.lessonsEmpty.hidden = true;
+        elements.lessonPreview.hidden = true;
+        elements.lessonRunner.hidden = false;
+        showLessonStep();
+    }
+
+    function completeLessonSession() {
+        const lesson = currentLesson();
+
+        if (!lesson) {
+            showLessonCatalog();
+            return;
+        }
+
+        state.lessonSessionComplete = true;
+        elements.lessonStepIcon.innerHTML = '';
+        elements.lessonStepIcon.hidden = true;
+        elements.lessonStepLabel.textContent = 'Lesson complete';
+        elements.lessonStepHeading.textContent = lesson.title;
+        elements.lessonStepInstruction.textContent = lesson.completion_message;
+        elements.lessonStepPractice.hidden = true;
+        elements.lessonProgress.value = lesson.steps.length;
+        elements.lessonProgressText.textContent = lesson.steps.length + ' of ' + lesson.steps.length + ' steps complete';
+        elements.lessonPrevious.hidden = true;
+        elements.lessonNext.dataset.action = 'return';
+        elements.lessonNext.textContent = 'Return to lesson choices';
+        setStatus(lesson.title + ' completed for this session.');
+        elements.lessonStepHeading.focus();
+    }
+
+    function moveLessonStep(direction) {
+        const lesson = currentLesson();
+
+        if (!lesson) {
+            showLessonCatalog();
+            return;
+        }
+
+        const nextIndex = state.lessonStepIndex + direction;
+
+        if (nextIndex < 0 || nextIndex >= lesson.steps.length) {
+            return;
+        }
+
+        state.lessonStepIndex = nextIndex;
+        showLessonStep();
     }
 
     function showIconDetail(icon) {
@@ -335,15 +458,7 @@
         if (mode === 'lessons') {
             elements.learnDetail.hidden = true;
             elements.iconChoiceSection.hidden = true;
-            renderLessonCatalog();
-
-            if (state.selectedLessonId) {
-                showLessonPreview(findLesson(state.selectedLessonId));
-            }
-            else {
-                elements.lessonPreview.hidden = true;
-            }
-
+            showLessonCatalog();
             setStatus('Four guided lessons are available. Choose one to preview.');
             return;
         }
@@ -556,6 +671,32 @@
             setStatus('Contrast setting updated.');
         });
         elements.resetDisplay.addEventListener('click', resetDisplaySettings);
+        elements.startLesson.addEventListener('click', function () {
+            startLesson(elements.startLesson.dataset.lessonId);
+        });
+        elements.exitLesson.addEventListener('click', function () {
+            showLessonCatalog();
+            setStatus('Returned to the lesson choices.');
+        });
+        elements.lessonPrevious.addEventListener('click', function () {
+            moveLessonStep(-1);
+        });
+        elements.lessonNext.addEventListener('click', function () {
+            if (elements.lessonNext.dataset.action === 'return') {
+                showLessonCatalog();
+                setStatus('Returned to the lesson choices.');
+                return;
+            }
+
+            const lesson = currentLesson();
+
+            if (lesson && state.lessonStepIndex === lesson.steps.length - 1) {
+                completeLessonSession();
+                return;
+            }
+
+            moveLessonStep(1);
+        });
         elements.lessonGrid.addEventListener('click', function (event) {
             const button = event.target.closest('[data-lesson-id]');
 
@@ -588,9 +729,14 @@
             'learn-mode', 'lessons-mode', 'practice-mode', 'review-mode', 'text-size', 'high-contrast',
             'reset-display', 'learn-controls', 'icon-search', 'category-filter',
             'progress-area', 'progress-text', 'learning-progress', 'clear-progress',
-            'result-status', 'lessons-panel', 'lesson-count', 'lesson-grid',
-            'lessons-empty', 'lesson-preview', 'lesson-preview-number',
-            'lesson-preview-title', 'lesson-preview-summary', 'lesson-preview-meta',
+            'result-status', 'lessons-panel', 'lesson-catalog-header',
+            'lesson-catalog-intro', 'lesson-count', 'lesson-grid', 'lessons-empty',
+            'lesson-preview', 'lesson-preview-number', 'lesson-preview-title',
+            'lesson-preview-summary', 'lesson-preview-meta', 'start-lesson',
+            'lesson-runner', 'exit-lesson', 'lesson-progress-text',
+            'lesson-progress', 'lesson-step-icon', 'lesson-step-label',
+            'lesson-step-heading', 'lesson-step-instruction', 'lesson-step-practice',
+            'lesson-step-prompt', 'lesson-previous', 'lesson-next',
             'learn-detail', 'detail-icon', 'detail-category',
             'detail-name', 'detail-meaning', 'detail-example', 'detail-caution',
             'read-aloud', 'save-review', 'practice-icon', 'practice-detail',

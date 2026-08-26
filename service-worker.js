@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'techsavvysage-icon-guide-v0.3.0';
+const CACHE_NAME = 'techsavvysage-icon-guide-v0.3.1';
 const CORE_ASSETS = [
     './',
     './index.html',
