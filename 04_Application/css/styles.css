@@ -671,3 +671,36 @@ body.high-contrast {
         width: 100%;
     }
 }
+/* Phase 3D: persistent lesson progress */
+.lesson-catalog-tools {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+}
+
+.lesson-status {
+    display: inline-flex;
+    width: fit-content;
+    border: 0.08rem solid var(--border);
+    border-radius: 999px;
+    padding: 0.25rem 0.55rem;
+    background: var(--warm-gray);
+    color: var(--muted-ink);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.lesson-status.completed {
+    border-color: var(--success);
+    color: var(--success);
+}
+
+.lesson-card.completed {
+    border-color: var(--success);
+}
+
+@media (max-width: 700px) {
+    .lesson-catalog-tools {
+        justify-content: flex-start;
+    }
+}

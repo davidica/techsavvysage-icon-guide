@@ -10,6 +10,8 @@
         activeLessonId: null,
         lessonStepIndex: 0,
         lessonSessionComplete: false,
+        lessonProgress: {},
+        reviewingCompletedLesson: false,
         filteredIcons: [],
         viewed: new Set(),
         practiced: new Set(),
@@ -50,6 +52,9 @@
                 state.viewed = new Set(uniqueIds(saved.viewed));
                 state.practiced = new Set(uniqueIds(saved.practiced));
                 state.review = new Set(uniqueIds(saved.review));
+                state.lessonProgress = saved.lessons && typeof saved.lessons === 'object' && !Array.isArray(saved.lessons)
+                    ? saved.lessons
+                    : {};
                 state.settings.textSize = saved.settings && saved.settings.textSize
                     ? saved.settings.textSize
                     : 'standard';
@@ -74,7 +79,8 @@
                 viewed: Array.from(state.viewed),
                 practiced: Array.from(state.practiced),
                 review: Array.from(state.review),
-                settings: state.settings
+                settings: state.settings,
+                lessons: state.lessonProgress
             }));
         }
         catch (error) {
@@ -255,6 +261,24 @@
             '<span class="lesson-card-summary">' + escapeHtml(lesson.summary) + '</span>' +
             '<span class="lesson-meta">' + lesson.estimated_minutes + ' minutes · ' + lesson.steps.length + ' icon steps</span>';
 
+        const savedProgress = getLessonProgress(lesson.id);
+
+        if (savedProgress) {
+            const status = document.createElement('span');
+            status.className = 'lesson-status';
+
+            if (savedProgress.completed) {
+                status.classList.add('completed');
+                status.textContent = 'Completed';
+                button.classList.add('completed');
+            }
+            else {
+                status.textContent = 'In progress · Step ' + (savedProgress.stepIndex + 1);
+            }
+
+            button.appendChild(status);
+        }
+
         if (state.selectedLessonId === lesson.id) {
             button.classList.add('selected');
             button.setAttribute('aria-current', 'true');
@@ -287,8 +311,74 @@
         elements.lessonPreviewSummary.textContent = lesson.summary;
         elements.lessonPreviewMeta.textContent = lesson.estimated_minutes + ' minutes · ' + lesson.steps.length + ' icon steps';
         elements.startLesson.dataset.lessonId = lesson.id;
+        const savedProgress = getLessonProgress(lesson.id);
+
+        if (savedProgress && savedProgress.completed) {
+            elements.startLesson.textContent = 'Review lesson';
+            elements.lessonPreviewMeta.textContent += ' · Completed';
+        }
+        else if (savedProgress) {
+            elements.startLesson.textContent = 'Resume lesson';
+            elements.lessonPreviewMeta.textContent += ' · Resume at step ' + (savedProgress.stepIndex + 1);
+        }
+        else {
+            elements.startLesson.textContent = 'Start lesson';
+        }
+
         elements.lessonPreview.hidden = false;
         setStatus(lesson.title + ' lesson preview selected.');
+    }
+
+    function getLessonProgress(id) {
+        return state.lessonProgress[id] || null;
+    }
+
+    function normalizeLessonProgress() {
+        const normalized = {};
+
+        state.lessons.forEach(function (lesson) {
+            const saved = state.lessonProgress[lesson.id];
+
+            if (!saved || typeof saved !== 'object') {
+                return;
+            }
+
+            const numericStep = Number(saved.stepIndex);
+            const stepIndex = Number.isInteger(numericStep)
+                ? Math.max(0, Math.min(numericStep, lesson.steps.length - 1))
+                : 0;
+            normalized[lesson.id] = {
+                stepIndex: stepIndex,
+                completed: Boolean(saved.completed)
+            };
+        });
+
+        state.lessonProgress = normalized;
+    }
+
+    function updateLessonProgress(id, stepIndex, completed) {
+        state.lessonProgress[id] = {
+            stepIndex: stepIndex,
+            completed: Boolean(completed)
+        };
+        saveProgress();
+    }
+
+    function resetLessonProgress() {
+        if (!window.confirm('Reset progress for all four guided lessons in this browser?')) {
+            return;
+        }
+
+        state.lessonProgress = {};
+        state.reviewingCompletedLesson = false;
+        saveProgress();
+        renderLessonCatalog();
+
+        if (state.selectedLessonId) {
+            showLessonPreview(findLesson(state.selectedLessonId));
+        }
+
+        setStatus('Lesson progress reset. Other learning data and display settings were kept.');
     }
 
     function currentLesson() {
@@ -298,6 +388,7 @@
     function showLessonCatalog() {
         state.activeLessonId = null;
         state.lessonSessionComplete = false;
+        state.reviewingCompletedLesson = false;
         elements.lessonCatalogHeader.hidden = false;
         elements.lessonCatalogIntro.hidden = false;
         elements.lessonGrid.hidden = false;
@@ -326,6 +417,11 @@
         const totalSteps = lesson.steps.length;
 
         state.lessonSessionComplete = false;
+
+        if (!state.reviewingCompletedLesson) {
+            updateLessonProgress(lesson.id, state.lessonStepIndex, false);
+        }
+
         elements.lessonStepIcon.hidden = false;
         elements.lessonStepIcon.innerHTML = window.IconGuideIcons.render(icon.icon, icon.name + ' icon');
         elements.lessonStepLabel.textContent = 'Lesson ' + lesson.order + ' · Step ' + stepNumber + ' of ' + totalSteps + ' · ' + icon.name;
@@ -355,9 +451,13 @@
             return;
         }
 
+        const savedProgress = getLessonProgress(lesson.id);
         state.selectedLessonId = lesson.id;
         state.activeLessonId = lesson.id;
-        state.lessonStepIndex = 0;
+        state.reviewingCompletedLesson = Boolean(savedProgress && savedProgress.completed);
+        state.lessonStepIndex = savedProgress && !savedProgress.completed
+            ? savedProgress.stepIndex
+            : 0;
         state.lessonSessionComplete = false;
         elements.lessonCatalogHeader.hidden = true;
         elements.lessonCatalogIntro.hidden = true;
@@ -377,6 +477,8 @@
         }
 
         state.lessonSessionComplete = true;
+        state.reviewingCompletedLesson = false;
+        updateLessonProgress(lesson.id, lesson.steps.length - 1, true);
         elements.lessonStepIcon.innerHTML = '';
         elements.lessonStepIcon.hidden = true;
         elements.lessonStepLabel.textContent = 'Lesson complete';
@@ -671,6 +773,7 @@
             setStatus('Contrast setting updated.');
         });
         elements.resetDisplay.addEventListener('click', resetDisplaySettings);
+        elements.resetLessons.addEventListener('click', resetLessonProgress);
         elements.startLesson.addEventListener('click', function () {
             startLesson(elements.startLesson.dataset.lessonId);
         });
@@ -730,7 +833,7 @@
             'reset-display', 'learn-controls', 'icon-search', 'category-filter',
             'progress-area', 'progress-text', 'learning-progress', 'clear-progress',
             'result-status', 'lessons-panel', 'lesson-catalog-header',
-            'lesson-catalog-intro', 'lesson-count', 'lesson-grid', 'lessons-empty',
+            'lesson-catalog-intro', 'reset-lessons', 'lesson-count', 'lesson-grid', 'lessons-empty',
             'lesson-preview', 'lesson-preview-number', 'lesson-preview-title',
             'lesson-preview-summary', 'lesson-preview-meta', 'start-lesson',
             'lesson-runner', 'exit-lesson', 'lesson-progress-text',
@@ -775,6 +878,7 @@
             }));
             state.icons = data[0].icons;
             state.lessons = data[1].lessons;
+            normalizeLessonProgress();
             state.filteredIcons = data[0].icons.slice();
             buildCategoryOptions();
             renderLessonCatalog();
