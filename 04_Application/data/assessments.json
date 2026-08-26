@@ -1,0 +1,522 @@
+{
+  "schema_version": "1.0",
+  "release_version": "0.4.0",
+  "assessments": [
+    {
+      "id": "find-your-way-assessment",
+      "lesson_id": "find-your-way",
+      "title": "Find Your Way Knowledge Check",
+      "instructions": "Choose the meaning that best matches the displayed icon. There is no timer or penalty.",
+      "questions_per_attempt": 5,
+      "questions": [
+        {
+          "id": "find-your-way-question-01",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "home",
+          "correct_answer_icon_id": "home",
+          "distractor_icon_ids": [
+            "back",
+            "forward",
+            "menu"
+          ]
+        },
+        {
+          "id": "find-your-way-question-02",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "back",
+          "correct_answer_icon_id": "back",
+          "distractor_icon_ids": [
+            "forward",
+            "menu",
+            "search"
+          ]
+        },
+        {
+          "id": "find-your-way-question-03",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "forward",
+          "correct_answer_icon_id": "forward",
+          "distractor_icon_ids": [
+            "menu",
+            "search",
+            "more"
+          ]
+        },
+        {
+          "id": "find-your-way-question-04",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "menu",
+          "correct_answer_icon_id": "menu",
+          "distractor_icon_ids": [
+            "search",
+            "more",
+            "refresh"
+          ]
+        },
+        {
+          "id": "find-your-way-question-05",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "search",
+          "correct_answer_icon_id": "search",
+          "distractor_icon_ids": [
+            "more",
+            "refresh",
+            "close"
+          ]
+        },
+        {
+          "id": "find-your-way-question-06",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "more",
+          "correct_answer_icon_id": "more",
+          "distractor_icon_ids": [
+            "refresh",
+            "close",
+            "home"
+          ]
+        },
+        {
+          "id": "find-your-way-question-07",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "refresh",
+          "correct_answer_icon_id": "refresh",
+          "distractor_icon_ids": [
+            "close",
+            "home",
+            "back"
+          ]
+        },
+        {
+          "id": "find-your-way-question-08",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "close",
+          "correct_answer_icon_id": "close",
+          "distractor_icon_ids": [
+            "home",
+            "back",
+            "forward"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "work-with-files-assessment",
+      "lesson_id": "work-with-files",
+      "title": "Work With Files Knowledge Check",
+      "instructions": "Choose the meaning that best matches the displayed icon. There is no timer or penalty.",
+      "questions_per_attempt": 5,
+      "questions": [
+        {
+          "id": "work-with-files-question-01",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "add",
+          "correct_answer_icon_id": "add",
+          "distractor_icon_ids": [
+            "edit",
+            "save",
+            "folder"
+          ]
+        },
+        {
+          "id": "work-with-files-question-02",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "edit",
+          "correct_answer_icon_id": "edit",
+          "distractor_icon_ids": [
+            "save",
+            "folder",
+            "document"
+          ]
+        },
+        {
+          "id": "work-with-files-question-03",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "save",
+          "correct_answer_icon_id": "save",
+          "distractor_icon_ids": [
+            "folder",
+            "document",
+            "download"
+          ]
+        },
+        {
+          "id": "work-with-files-question-04",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "folder",
+          "correct_answer_icon_id": "folder",
+          "distractor_icon_ids": [
+            "document",
+            "download",
+            "upload"
+          ]
+        },
+        {
+          "id": "work-with-files-question-05",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "document",
+          "correct_answer_icon_id": "document",
+          "distractor_icon_ids": [
+            "download",
+            "upload",
+            "attach"
+          ]
+        },
+        {
+          "id": "work-with-files-question-06",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "download",
+          "correct_answer_icon_id": "download",
+          "distractor_icon_ids": [
+            "upload",
+            "attach",
+            "share"
+          ]
+        },
+        {
+          "id": "work-with-files-question-07",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "upload",
+          "correct_answer_icon_id": "upload",
+          "distractor_icon_ids": [
+            "attach",
+            "share",
+            "print"
+          ]
+        },
+        {
+          "id": "work-with-files-question-08",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "attach",
+          "correct_answer_icon_id": "attach",
+          "distractor_icon_ids": [
+            "share",
+            "print",
+            "delete"
+          ]
+        },
+        {
+          "id": "work-with-files-question-09",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "share",
+          "correct_answer_icon_id": "share",
+          "distractor_icon_ids": [
+            "print",
+            "delete",
+            "add"
+          ]
+        },
+        {
+          "id": "work-with-files-question-10",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "print",
+          "correct_answer_icon_id": "print",
+          "distractor_icon_ids": [
+            "delete",
+            "add",
+            "edit"
+          ]
+        },
+        {
+          "id": "work-with-files-question-11",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "delete",
+          "correct_answer_icon_id": "delete",
+          "distractor_icon_ids": [
+            "add",
+            "edit",
+            "save"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "communicate-and-use-media-assessment",
+      "lesson_id": "communicate-and-use-media",
+      "title": "Communicate and Use Media Knowledge Check",
+      "instructions": "Choose the meaning that best matches the displayed icon. There is no timer or penalty.",
+      "questions_per_attempt": 5,
+      "questions": [
+        {
+          "id": "communicate-and-use-media-question-01",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "contacts",
+          "correct_answer_icon_id": "contacts",
+          "distractor_icon_ids": [
+            "calendar",
+            "phone",
+            "message"
+          ]
+        },
+        {
+          "id": "communicate-and-use-media-question-02",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "calendar",
+          "correct_answer_icon_id": "calendar",
+          "distractor_icon_ids": [
+            "phone",
+            "message",
+            "send"
+          ]
+        },
+        {
+          "id": "communicate-and-use-media-question-03",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "phone",
+          "correct_answer_icon_id": "phone",
+          "distractor_icon_ids": [
+            "message",
+            "send",
+            "camera"
+          ]
+        },
+        {
+          "id": "communicate-and-use-media-question-04",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "message",
+          "correct_answer_icon_id": "message",
+          "distractor_icon_ids": [
+            "send",
+            "camera",
+            "microphone"
+          ]
+        },
+        {
+          "id": "communicate-and-use-media-question-05",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "send",
+          "correct_answer_icon_id": "send",
+          "distractor_icon_ids": [
+            "camera",
+            "microphone",
+            "volume"
+          ]
+        },
+        {
+          "id": "communicate-and-use-media-question-06",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "camera",
+          "correct_answer_icon_id": "camera",
+          "distractor_icon_ids": [
+            "microphone",
+            "volume",
+            "play"
+          ]
+        },
+        {
+          "id": "communicate-and-use-media-question-07",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "microphone",
+          "correct_answer_icon_id": "microphone",
+          "distractor_icon_ids": [
+            "volume",
+            "play",
+            "pause"
+          ]
+        },
+        {
+          "id": "communicate-and-use-media-question-08",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "volume",
+          "correct_answer_icon_id": "volume",
+          "distractor_icon_ids": [
+            "play",
+            "pause",
+            "stop"
+          ]
+        },
+        {
+          "id": "communicate-and-use-media-question-09",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "play",
+          "correct_answer_icon_id": "play",
+          "distractor_icon_ids": [
+            "pause",
+            "stop",
+            "contacts"
+          ]
+        },
+        {
+          "id": "communicate-and-use-media-question-10",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "pause",
+          "correct_answer_icon_id": "pause",
+          "distractor_icon_ids": [
+            "stop",
+            "contacts",
+            "calendar"
+          ]
+        },
+        {
+          "id": "communicate-and-use-media-question-11",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "stop",
+          "correct_answer_icon_id": "stop",
+          "distractor_icon_ids": [
+            "contacts",
+            "calendar",
+            "phone"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stay-safe-and-connected-assessment",
+      "lesson_id": "stay-safe-and-connected",
+      "title": "Stay Safe and Connected Knowledge Check",
+      "instructions": "Choose the meaning that best matches the displayed icon. There is no timer or penalty.",
+      "questions_per_attempt": 5,
+      "questions": [
+        {
+          "id": "stay-safe-and-connected-question-01",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "settings",
+          "correct_answer_icon_id": "settings",
+          "distractor_icon_ids": [
+            "notifications",
+            "wifi",
+            "bluetooth"
+          ]
+        },
+        {
+          "id": "stay-safe-and-connected-question-02",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "notifications",
+          "correct_answer_icon_id": "notifications",
+          "distractor_icon_ids": [
+            "wifi",
+            "bluetooth",
+            "lock"
+          ]
+        },
+        {
+          "id": "stay-safe-and-connected-question-03",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "wifi",
+          "correct_answer_icon_id": "wifi",
+          "distractor_icon_ids": [
+            "bluetooth",
+            "lock",
+            "view"
+          ]
+        },
+        {
+          "id": "stay-safe-and-connected-question-04",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "bluetooth",
+          "correct_answer_icon_id": "bluetooth",
+          "distractor_icon_ids": [
+            "lock",
+            "view",
+            "warning"
+          ]
+        },
+        {
+          "id": "stay-safe-and-connected-question-05",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "lock",
+          "correct_answer_icon_id": "lock",
+          "distractor_icon_ids": [
+            "view",
+            "warning",
+            "help"
+          ]
+        },
+        {
+          "id": "stay-safe-and-connected-question-06",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "view",
+          "correct_answer_icon_id": "view",
+          "distractor_icon_ids": [
+            "warning",
+            "help",
+            "information"
+          ]
+        },
+        {
+          "id": "stay-safe-and-connected-question-07",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "warning",
+          "correct_answer_icon_id": "warning",
+          "distractor_icon_ids": [
+            "help",
+            "information",
+            "location"
+          ]
+        },
+        {
+          "id": "stay-safe-and-connected-question-08",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "help",
+          "correct_answer_icon_id": "help",
+          "distractor_icon_ids": [
+            "information",
+            "location",
+            "settings"
+          ]
+        },
+        {
+          "id": "stay-safe-and-connected-question-09",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "information",
+          "correct_answer_icon_id": "information",
+          "distractor_icon_ids": [
+            "location",
+            "settings",
+            "notifications"
+          ]
+        },
+        {
+          "id": "stay-safe-and-connected-question-10",
+          "type": "icon-to-meaning",
+          "prompt": "What does this icon mean?",
+          "icon_id": "location",
+          "correct_answer_icon_id": "location",
+          "distractor_icon_ids": [
+            "settings",
+            "notifications",
+            "wifi"
+          ]
+        }
+      ]
+    }
+  ]
+}
