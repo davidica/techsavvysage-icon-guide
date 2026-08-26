@@ -19,6 +19,7 @@
         assessmentScore: 0,
         assessmentAnswered: false,
         assessmentComplete: false,
+        assessmentMissedIconIds: [],
         filteredIcons: [],
         viewed: new Set(),
         practiced: new Set(),
@@ -408,6 +409,7 @@
         state.assessmentQuestions = [];
         state.assessmentAnswered = false;
         state.assessmentComplete = false;
+        state.assessmentMissedIconIds = [];
         renderLessonCatalog();
 
         if (state.selectedLessonId) {
@@ -562,6 +564,7 @@
         state.assessmentScore = 0;
         state.assessmentAnswered = false;
         state.assessmentComplete = false;
+        state.assessmentMissedIconIds = [];
         elements.exitLesson.hidden = true;
         elements.lessonProgressRow.hidden = true;
         elements.lessonStepCard.hidden = true;
@@ -625,6 +628,8 @@
         elements.assessmentNext.hidden = true;
         elements.assessmentRetry.hidden = true;
         elements.assessmentReturn.hidden = true;
+        elements.assessmentReview.hidden = true;
+        elements.assessmentReviewList.innerHTML = '';
         setStatus('Knowledge check question ' + questionNumber + ' of ' + totalQuestions + '. Choose one answer.');
         elements.assessmentHeading.focus();
     }
@@ -663,6 +668,10 @@
             elements.assessmentFeedback.textContent = 'That is right. The ' + correctIcon.name + ' icon ' + correctIcon.meaning;
         }
         else {
+            if (state.assessmentMissedIconIds.indexOf(correctIcon.id) === -1) {
+                state.assessmentMissedIconIds.push(correctIcon.id);
+            }
+
             elements.assessmentFeedback.className = 'assessment-feedback';
             elements.assessmentFeedback.textContent = 'Good try. The ' + correctIcon.name + ' icon ' + correctIcon.meaning;
         }
@@ -674,6 +683,47 @@
         elements.assessmentNext.hidden = false;
         setStatus(elements.assessmentFeedback.textContent);
         elements.assessmentNext.focus();
+    }
+
+    function renderAssessmentReview() {
+        elements.assessmentReviewList.innerHTML = '';
+
+        if (state.assessmentMissedIconIds.length === 0) {
+            elements.assessmentReview.hidden = true;
+            return;
+        }
+
+        state.assessmentMissedIconIds.forEach(function (iconId) {
+            const icon = findIcon(iconId);
+
+            if (!icon) {
+                return;
+            }
+
+            const card = document.createElement('article');
+            const visual = document.createElement('div');
+            const copy = document.createElement('div');
+            const heading = document.createElement('h5');
+            const meaning = document.createElement('p');
+            const example = document.createElement('p');
+
+            card.className = 'assessment-review-card';
+            visual.className = 'assessment-review-icon';
+            visual.setAttribute('aria-hidden', 'true');
+            visual.innerHTML = window.IconGuideIcons.render(icon.icon, icon.name + ' icon');
+            heading.textContent = icon.name;
+            meaning.textContent = icon.meaning;
+            example.className = 'detail-secondary';
+            example.textContent = 'Example: ' + icon.example;
+            copy.appendChild(heading);
+            copy.appendChild(meaning);
+            copy.appendChild(example);
+            card.appendChild(visual);
+            card.appendChild(copy);
+            elements.assessmentReviewList.appendChild(card);
+        });
+
+        elements.assessmentReview.hidden = false;
     }
 
     function completeAssessment() {
@@ -697,6 +747,7 @@
             ? 'Excellent work. You can retry whenever you want more practice.'
             : 'Nice work. Retry when you are ready; there is no penalty.';
         elements.assessmentFeedback.hidden = false;
+        renderAssessmentReview();
         elements.assessmentProgress.max = totalQuestions;
         elements.assessmentProgress.value = totalQuestions;
         elements.assessmentProgress.textContent = totalQuestions + ' of ' + totalQuestions + ' questions complete';
@@ -1081,7 +1132,8 @@
             'assessment-runner', 'exit-assessment', 'assessment-progress-text',
             'assessment-progress', 'assessment-icon', 'assessment-label',
             'assessment-heading', 'assessment-question', 'assessment-options',
-            'assessment-feedback', 'assessment-next', 'assessment-retry',
+            'assessment-feedback', 'assessment-review', 'assessment-review-heading',
+            'assessment-review-list', 'assessment-next', 'assessment-retry',
             'assessment-return',
             'learn-detail', 'detail-icon', 'detail-category',
             'detail-name', 'detail-meaning', 'detail-example', 'detail-caution',

@@ -809,3 +809,61 @@ body.high-contrast {
         width: 100%;
     }
 }
+/* Phase 4C: missed icon review */
+.assessment-review {
+    margin-top: 1.25rem;
+    border-top: 0.1rem solid var(--border);
+    padding-top: 1rem;
+}
+
+.assessment-review h4 {
+    margin: 0 0 0.35rem;
+    font-size: 1.2rem;
+}
+
+.assessment-review-list {
+    display: grid;
+    gap: 0.85rem;
+    margin-top: 1rem;
+}
+
+.assessment-review-card {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: 1rem;
+    align-items: start;
+    border: 0.1rem solid var(--border);
+    border-radius: 0.55rem;
+    padding: 0.9rem;
+    background: var(--warm-gray);
+}
+
+.assessment-review-card h5 {
+    margin: 0 0 0.25rem;
+    font-size: 1.05rem;
+}
+
+.assessment-review-card p {
+    margin: 0.25rem 0 0;
+}
+
+.assessment-review-icon {
+    display: grid;
+    place-items: center;
+    min-height: 4rem;
+}
+
+.assessment-review-icon svg {
+    width: 3.25rem;
+    height: 3.25rem;
+}
+
+@media (max-width: 520px) {
+    .assessment-review-card {
+        grid-template-columns: 1fr;
+    }
+
+    .assessment-review-icon {
+        justify-content: start;
+    }
+}
