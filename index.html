@@ -103,11 +103,11 @@
 
             <section id="lesson-runner" class="lesson-runner" aria-labelledby="lesson-step-heading" hidden>
                 <button id="exit-lesson" class="text-button" type="button">Back to lesson choices</button>
-                <div class="lesson-progress-row">
+                <div id="lesson-progress-row" class="lesson-progress-row">
                     <span id="lesson-progress-text">Step 1 of 1</span>
                     <progress id="lesson-progress" value="1" max="1">Step 1 of 1</progress>
                 </div>
-                <div class="lesson-step-card">
+                <div id="lesson-step-card" class="lesson-step-card">
                     <div id="lesson-step-icon" class="large-icon lesson-step-icon" aria-hidden="true"></div>
                     <div class="lesson-step-copy">
                         <p id="lesson-step-label" class="detail-category"></p>
@@ -119,10 +119,34 @@
                         </p>
                         <div class="lesson-navigation">
                             <button id="lesson-previous" class="secondary-button" type="button">Previous step</button>
+                            <button id="start-assessment" class="primary-button" type="button" hidden>Start knowledge check</button>
                             <button id="lesson-next" class="primary-button" type="button">Next step</button>
                         </div>
                     </div>
                 </div>
+
+                <section id="assessment-runner" class="assessment-runner" aria-labelledby="assessment-heading" hidden>
+                    <button id="exit-assessment" class="text-button" type="button">Back to lesson choices</button>
+                    <div class="assessment-progress-row">
+                        <span id="assessment-progress-text">Question 1 of 5</span>
+                        <progress id="assessment-progress" value="1" max="5">Question 1 of 5</progress>
+                    </div>
+                    <div class="assessment-card">
+                        <div id="assessment-icon" class="large-icon assessment-icon" aria-hidden="true"></div>
+                        <div class="assessment-copy">
+                            <p id="assessment-label" class="detail-category">Knowledge check</p>
+                            <h3 id="assessment-heading" tabindex="-1">Knowledge check</h3>
+                            <p id="assessment-question"></p>
+                            <div id="assessment-options" class="assessment-options" role="group" aria-labelledby="assessment-question"></div>
+                            <p id="assessment-feedback" class="assessment-feedback" role="status" aria-live="polite" hidden></p>
+                            <div class="assessment-navigation">
+                                <button id="assessment-next" class="primary-button" type="button" hidden>Next question</button>
+                                <button id="assessment-retry" class="secondary-button" type="button" hidden>Try five more questions</button>
+                                <button id="assessment-return" class="primary-button" type="button" hidden>Return to lesson choices</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </section>
         </section>
 

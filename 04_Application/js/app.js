@@ -12,6 +12,13 @@
         lessonSessionComplete: false,
         lessonProgress: {},
         reviewingCompletedLesson: false,
+        assessments: [],
+        activeAssessment: null,
+        assessmentQuestions: [],
+        assessmentQuestionIndex: 0,
+        assessmentScore: 0,
+        assessmentAnswered: false,
+        assessmentComplete: false,
         filteredIcons: [],
         viewed: new Set(),
         practiced: new Set(),
@@ -393,6 +400,14 @@
         elements.lessonCatalogIntro.hidden = false;
         elements.lessonGrid.hidden = false;
         elements.lessonRunner.hidden = true;
+        elements.assessmentRunner.hidden = true;
+        elements.lessonProgressRow.hidden = false;
+        elements.lessonStepCard.hidden = false;
+        elements.exitLesson.hidden = false;
+        state.activeAssessment = null;
+        state.assessmentQuestions = [];
+        state.assessmentAnswered = false;
+        state.assessmentComplete = false;
         renderLessonCatalog();
 
         if (state.selectedLessonId) {
@@ -435,6 +450,7 @@
         elements.lessonProgressText.textContent = 'Step ' + stepNumber + ' of ' + totalSteps;
         elements.lessonPrevious.hidden = false;
         elements.lessonPrevious.disabled = state.lessonStepIndex === 0;
+        elements.startAssessment.hidden = true;
         elements.lessonNext.dataset.action = 'advance';
         elements.lessonNext.textContent = state.lessonStepIndex === totalSteps - 1
             ? 'Finish lesson'
@@ -488,6 +504,7 @@
         elements.lessonProgress.value = lesson.steps.length;
         elements.lessonProgressText.textContent = lesson.steps.length + ' of ' + lesson.steps.length + ' steps complete';
         elements.lessonPrevious.hidden = true;
+        elements.startAssessment.hidden = false;
         elements.lessonNext.dataset.action = 'return';
         elements.lessonNext.textContent = 'Return to lesson choices';
         setStatus(lesson.title + ' completed for this session.');
@@ -510,6 +527,185 @@
 
         state.lessonStepIndex = nextIndex;
         showLessonStep();
+    }
+
+    function findAssessmentByLesson(lessonId) {
+        return state.assessments.find(function (assessment) {
+            return assessment.lesson_id === lessonId;
+        });
+    }
+
+    function shuffledCopy(items) {
+        const copy = items.slice();
+
+        for (let index = copy.length - 1; index > 0; index -= 1) {
+            const replacementIndex = Math.floor(Math.random() * (index + 1));
+            const temporaryItem = copy[index];
+            copy[index] = copy[replacementIndex];
+            copy[replacementIndex] = temporaryItem;
+        }
+
+        return copy;
+    }
+
+    function startAssessment(lessonId) {
+        const assessment = findAssessmentByLesson(lessonId);
+
+        if (!assessment) {
+            setStatus('The knowledge check for this lesson is unavailable.');
+            return;
+        }
+
+        state.activeAssessment = assessment;
+        state.assessmentQuestions = shuffledCopy(assessment.questions).slice(0, assessment.questions_per_attempt);
+        state.assessmentQuestionIndex = 0;
+        state.assessmentScore = 0;
+        state.assessmentAnswered = false;
+        state.assessmentComplete = false;
+        elements.exitLesson.hidden = true;
+        elements.lessonProgressRow.hidden = true;
+        elements.lessonStepCard.hidden = true;
+        elements.assessmentRunner.hidden = false;
+        showAssessmentQuestion();
+    }
+
+    function showAssessmentQuestion() {
+        const assessment = state.activeAssessment;
+        const question = state.assessmentQuestions[state.assessmentQuestionIndex];
+
+        if (!assessment || !question) {
+            showLessonCatalog();
+            return;
+        }
+
+        const icon = findIcon(question.icon_id);
+        const optionIds = shuffledCopy([
+            question.correct_answer_icon_id
+        ].concat(question.distractor_icon_ids));
+        const questionNumber = state.assessmentQuestionIndex + 1;
+        const totalQuestions = state.assessmentQuestions.length;
+
+        if (!icon) {
+            setStatus('An icon needed for this knowledge check is unavailable.');
+            showLessonCatalog();
+            return;
+        }
+
+        state.assessmentAnswered = false;
+        state.assessmentComplete = false;
+        elements.assessmentIcon.hidden = false;
+        elements.assessmentIcon.innerHTML = window.IconGuideIcons.render(icon.icon, icon.name + ' icon');
+        elements.assessmentLabel.textContent = 'Knowledge check · Question ' + questionNumber + ' of ' + totalQuestions;
+        elements.assessmentHeading.textContent = assessment.title;
+        elements.assessmentQuestion.textContent = question.prompt;
+        elements.assessmentOptions.innerHTML = '';
+
+        optionIds.forEach(function (iconId) {
+            const answerIcon = findIcon(iconId);
+
+            if (!answerIcon) {
+                return;
+            }
+
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'assessment-option';
+            button.dataset.answerIconId = answerIcon.id;
+            button.textContent = answerIcon.meaning;
+            elements.assessmentOptions.appendChild(button);
+        });
+
+        elements.assessmentFeedback.hidden = true;
+        elements.assessmentFeedback.textContent = '';
+        elements.assessmentFeedback.className = 'assessment-feedback';
+        elements.assessmentProgress.max = totalQuestions;
+        elements.assessmentProgress.value = questionNumber;
+        elements.assessmentProgress.textContent = 'Question ' + questionNumber + ' of ' + totalQuestions;
+        elements.assessmentProgressText.textContent = 'Question ' + questionNumber + ' of ' + totalQuestions;
+        elements.assessmentNext.hidden = true;
+        elements.assessmentRetry.hidden = true;
+        elements.assessmentReturn.hidden = true;
+        setStatus('Knowledge check question ' + questionNumber + ' of ' + totalQuestions + '. Choose one answer.');
+        elements.assessmentHeading.focus();
+    }
+
+    function answerAssessment(answerIconId) {
+        if (state.assessmentAnswered) {
+            return;
+        }
+
+        const question = state.assessmentQuestions[state.assessmentQuestionIndex];
+        const correctIcon = question ? findIcon(question.correct_answer_icon_id) : null;
+
+        if (!question || !correctIcon) {
+            setStatus('This knowledge-check question is unavailable.');
+            return;
+        }
+
+        state.assessmentAnswered = true;
+        const isCorrect = answerIconId === question.correct_answer_icon_id;
+        const optionButtons = elements.assessmentOptions.querySelectorAll('[data-answer-icon-id]');
+
+        optionButtons.forEach(function (button) {
+            button.disabled = true;
+
+            if (button.dataset.answerIconId === question.correct_answer_icon_id) {
+                button.classList.add('correct');
+            }
+            else if (button.dataset.answerIconId === answerIconId) {
+                button.classList.add('incorrect');
+            }
+        });
+
+        if (isCorrect) {
+            state.assessmentScore += 1;
+            elements.assessmentFeedback.className = 'assessment-feedback correct';
+            elements.assessmentFeedback.textContent = 'That is right. The ' + correctIcon.name + ' icon ' + correctIcon.meaning;
+        }
+        else {
+            elements.assessmentFeedback.className = 'assessment-feedback';
+            elements.assessmentFeedback.textContent = 'Good try. The ' + correctIcon.name + ' icon ' + correctIcon.meaning;
+        }
+
+        elements.assessmentFeedback.hidden = false;
+        elements.assessmentNext.textContent = state.assessmentQuestionIndex === state.assessmentQuestions.length - 1
+            ? 'See results'
+            : 'Next question';
+        elements.assessmentNext.hidden = false;
+        setStatus(elements.assessmentFeedback.textContent);
+        elements.assessmentNext.focus();
+    }
+
+    function completeAssessment() {
+        const assessment = state.activeAssessment;
+        const totalQuestions = state.assessmentQuestions.length;
+
+        if (!assessment) {
+            showLessonCatalog();
+            return;
+        }
+
+        state.assessmentComplete = true;
+        elements.assessmentIcon.innerHTML = '';
+        elements.assessmentIcon.hidden = true;
+        elements.assessmentLabel.textContent = 'Knowledge check complete';
+        elements.assessmentHeading.textContent = assessment.title;
+        elements.assessmentQuestion.textContent = 'You answered ' + state.assessmentScore + ' of ' + totalQuestions + ' correctly.';
+        elements.assessmentOptions.innerHTML = '';
+        elements.assessmentFeedback.className = 'assessment-feedback correct';
+        elements.assessmentFeedback.textContent = state.assessmentScore === totalQuestions
+            ? 'Excellent work. You can retry whenever you want more practice.'
+            : 'Nice work. Retry when you are ready; there is no penalty.';
+        elements.assessmentFeedback.hidden = false;
+        elements.assessmentProgress.max = totalQuestions;
+        elements.assessmentProgress.value = totalQuestions;
+        elements.assessmentProgress.textContent = totalQuestions + ' of ' + totalQuestions + ' questions complete';
+        elements.assessmentProgressText.textContent = totalQuestions + ' of ' + totalQuestions + ' questions complete';
+        elements.assessmentNext.hidden = true;
+        elements.assessmentRetry.hidden = false;
+        elements.assessmentReturn.hidden = false;
+        setStatus('Knowledge check complete. ' + state.assessmentScore + ' of ' + totalQuestions + ' correct.');
+        elements.assessmentHeading.focus();
     }
 
     function showIconDetail(icon) {
@@ -773,6 +969,48 @@
             setStatus('Contrast setting updated.');
         });
         elements.resetDisplay.addEventListener('click', resetDisplaySettings);
+        elements.startAssessment.addEventListener('click', function () {
+            const lesson = currentLesson();
+
+            if (lesson) {
+                startAssessment(lesson.id);
+            }
+        });
+        elements.exitAssessment.addEventListener('click', function () {
+            showLessonCatalog();
+            setStatus('Returned to the lesson choices.');
+        });
+        elements.assessmentOptions.addEventListener('click', function (event) {
+            const button = event.target.closest('[data-answer-icon-id]');
+
+            if (!button) {
+                return;
+            }
+
+            answerAssessment(button.dataset.answerIconId);
+        });
+        elements.assessmentNext.addEventListener('click', function () {
+            if (!state.assessmentAnswered) {
+                return;
+            }
+
+            if (state.assessmentQuestionIndex === state.assessmentQuestions.length - 1) {
+                completeAssessment();
+                return;
+            }
+
+            state.assessmentQuestionIndex += 1;
+            showAssessmentQuestion();
+        });
+        elements.assessmentRetry.addEventListener('click', function () {
+            if (state.activeAssessment) {
+                startAssessment(state.activeAssessment.lesson_id);
+            }
+        });
+        elements.assessmentReturn.addEventListener('click', function () {
+            showLessonCatalog();
+            setStatus('Returned to the lesson choices.');
+        });
         elements.resetLessons.addEventListener('click', resetLessonProgress);
         elements.startLesson.addEventListener('click', function () {
             startLesson(elements.startLesson.dataset.lessonId);
@@ -836,10 +1074,15 @@
             'lesson-catalog-intro', 'reset-lessons', 'lesson-count', 'lesson-grid', 'lessons-empty',
             'lesson-preview', 'lesson-preview-number', 'lesson-preview-title',
             'lesson-preview-summary', 'lesson-preview-meta', 'start-lesson',
-            'lesson-runner', 'exit-lesson', 'lesson-progress-text',
-            'lesson-progress', 'lesson-step-icon', 'lesson-step-label',
+            'lesson-runner', 'exit-lesson', 'lesson-progress-row', 'lesson-progress-text',
+            'lesson-progress', 'lesson-step-card', 'lesson-step-icon', 'lesson-step-label',
             'lesson-step-heading', 'lesson-step-instruction', 'lesson-step-practice',
-            'lesson-step-prompt', 'lesson-previous', 'lesson-next',
+            'lesson-step-prompt', 'lesson-previous', 'start-assessment', 'lesson-next',
+            'assessment-runner', 'exit-assessment', 'assessment-progress-text',
+            'assessment-progress', 'assessment-icon', 'assessment-label',
+            'assessment-heading', 'assessment-question', 'assessment-options',
+            'assessment-feedback', 'assessment-next', 'assessment-retry',
+            'assessment-return',
             'learn-detail', 'detail-icon', 'detail-category',
             'detail-name', 'detail-meaning', 'detail-example', 'detail-caution',
             'read-aloud', 'save-review', 'practice-icon', 'practice-detail',
@@ -866,11 +1109,12 @@
         try {
             const responses = await Promise.all([
                 fetch('04_Application/data/icons.json', { cache: 'no-store' }),
-                fetch('04_Application/data/lessons.json', { cache: 'no-store' })
+                fetch('04_Application/data/lessons.json', { cache: 'no-store' }),
+                fetch('04_Application/data/assessments.json', { cache: 'no-store' })
             ]);
 
-            if (!responses[0].ok || !responses[1].ok) {
-                throw new Error('Icon or lesson data could not be loaded.');
+            if (!responses[0].ok || !responses[1].ok || !responses[2].ok) {
+                throw new Error('Icon, lesson, or assessment data could not be loaded.');
             }
 
             const data = await Promise.all(responses.map(function (response) {
@@ -878,6 +1122,7 @@
             }));
             state.icons = data[0].icons;
             state.lessons = data[1].lessons;
+            state.assessments = data[2].assessments;
             normalizeLessonProgress();
             state.filteredIcons = data[0].icons.slice();
             buildCategoryOptions();
