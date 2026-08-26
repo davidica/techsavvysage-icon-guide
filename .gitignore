@@ -1,0 +1,15 @@
+# Operating-system files
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+.idea/
+
+# Local logs and temporary files
+*.tmp
+*.bak
+11_Automation/Logs/*.log
+
+# Local dependency folders
+node_modules/

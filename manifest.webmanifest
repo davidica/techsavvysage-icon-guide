@@ -1,0 +1,12 @@
+{
+    "name": "TechSavvySage Icon Guide",
+    "short_name": "Icon Guide",
+    "description": "Accessible learning utility for understanding commonly used computer and mobile icons.",
+    "start_url": "./",
+    "scope": "./",
+    "display": "standalone",
+    "background_color": "#F3F1ED",
+    "theme_color": "#6E8B74",
+    "lang": "en-US",
+    "icons": []
+}
