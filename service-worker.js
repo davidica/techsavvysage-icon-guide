@@ -1,11 +1,12 @@
 'use strict';
 
-const CACHE_NAME = 'techsavvysage-icon-guide-v1';
+const CACHE_NAME = 'techsavvysage-icon-guide-v0.1.1';
 const CORE_ASSETS = [
     './',
     './index.html',
     './manifest.webmanifest',
     './04_Application/css/styles.css',
+    './04_Application/js/icons.js',
     './04_Application/js/app.js',
     './04_Application/data/icons.json'
 ];
@@ -16,6 +17,7 @@ self.addEventListener('install', function (event) {
             return cache.addAll(CORE_ASSETS);
         })
     );
+    self.skipWaiting();
 });
 
 self.addEventListener('activate', function (event) {
@@ -32,6 +34,7 @@ self.addEventListener('activate', function (event) {
             );
         })
     );
+    self.clients.claim();
 });
 
 self.addEventListener('fetch', function (event) {
@@ -41,7 +44,9 @@ self.addEventListener('fetch', function (event) {
 
     event.respondWith(
         caches.match(event.request).then(function (cachedResponse) {
-            return cachedResponse || fetch(event.request);
+            return cachedResponse || fetch(event.request).then(function (networkResponse) {
+                return networkResponse;
+            });
         })
     );
 });
