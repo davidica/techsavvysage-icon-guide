@@ -627,6 +627,7 @@
         elements.assessmentProgressText.textContent = 'Question ' + questionNumber + ' of ' + totalQuestions;
         elements.assessmentNext.hidden = true;
         elements.assessmentRetry.hidden = true;
+        elements.assessmentPracticeMissed.hidden = true;
         elements.assessmentReturn.hidden = true;
         elements.assessmentReview.hidden = true;
         elements.assessmentReviewList.innerHTML = '';
@@ -754,6 +755,7 @@
         elements.assessmentProgressText.textContent = totalQuestions + ' of ' + totalQuestions + ' questions complete';
         elements.assessmentNext.hidden = true;
         elements.assessmentRetry.hidden = false;
+        elements.assessmentPracticeMissed.hidden = state.assessmentMissedIconIds.length === 0;
         elements.assessmentReturn.hidden = false;
         setStatus('Knowledge check complete. ' + state.assessmentScore + ' of ' + totalQuestions + ' correct.');
         elements.assessmentHeading.focus();
@@ -1058,6 +1060,16 @@
                 startAssessment(state.activeAssessment.lesson_id);
             }
         });
+        elements.assessmentPracticeMissed.addEventListener('click', function () {
+            if (state.assessmentMissedIconIds.length === 0) {
+                return;
+            }
+
+            const missedIconIds = shuffledCopy(state.assessmentMissedIconIds);
+            setMode('practice');
+            startPractice(missedIconIds);
+            setStatus('Practicing ' + missedIconIds.length + ' missed icon' + (missedIconIds.length === 1 ? '.' : 's.'));
+        });
         elements.assessmentReturn.addEventListener('click', function () {
             showLessonCatalog();
             setStatus('Returned to the lesson choices.');
@@ -1134,7 +1146,7 @@
             'assessment-heading', 'assessment-question', 'assessment-options',
             'assessment-feedback', 'assessment-review', 'assessment-review-heading',
             'assessment-review-list', 'assessment-next', 'assessment-retry',
-            'assessment-return',
+            'assessment-practice-missed', 'assessment-return',
             'learn-detail', 'detail-icon', 'detail-category',
             'detail-name', 'detail-meaning', 'detail-example', 'detail-caution',
             'read-aloud', 'save-review', 'practice-icon', 'practice-detail',
