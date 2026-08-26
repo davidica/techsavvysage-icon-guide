@@ -1,12 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-text-size="standard">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Learn the meanings of commonly used computer and phone icons through accessible, untimed practice.">
+    <meta name="description" content="Learn and practice 40 common computer and phone icons through accessible, untimed lessons.">
     <meta name="theme-color" content="#607D68">
     <title>TechSavvySage Icon Guide</title>
     <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="04_Application/assets/app-icons/icon-guide-192.png">
     <link rel="stylesheet" href="04_Application/css/styles.css">
 </head>
 <body>
@@ -26,20 +27,39 @@
     <main id="main-content">
         <section class="introduction" aria-labelledby="intro-heading">
             <h2 id="intro-heading">Common icons, explained clearly</h2>
-            <p>Select an icon to learn what it means, where you may see it, and when to pause before using it. There’s no rush.</p>
+            <p>Learn at your pace, save icons for review, or choose a short practice session. There’s no timer and no penalty for trying.</p>
         </section>
 
         <nav class="mode-selector" aria-label="Learning mode">
             <button id="learn-mode" class="mode-button active" type="button" aria-pressed="true">Learn</button>
             <button id="practice-mode" class="mode-button" type="button" aria-pressed="false">Practice</button>
+            <button id="review-mode" class="mode-button" type="button" aria-pressed="false">Saved for review</button>
         </nav>
+
+        <details class="settings-panel">
+            <summary>Display settings</summary>
+            <div class="settings-controls">
+                <label for="text-size">
+                    Text size
+                    <select id="text-size">
+                        <option value="standard">Standard</option>
+                        <option value="large">Large</option>
+                        <option value="extra-large">Extra Large</option>
+                    </select>
+                </label>
+                <label class="checkbox-label" for="high-contrast">
+                    <input id="high-contrast" type="checkbox">
+                    Use high contrast
+                </label>
+                <button id="reset-display" class="secondary-button" type="button">Reset display settings</button>
+            </div>
+        </details>
 
         <section id="learn-controls" class="controls" aria-label="Find icons">
             <label for="icon-search">
                 Find an icon
-                <input id="icon-search" type="search" autocomplete="off" placeholder="Try delete, sound, Wi-Fi…">
+                <input id="icon-search" type="search" autocomplete="off" placeholder="Try message, warning, Bluetooth…">
             </label>
-
             <label for="category-filter">
                 Category
                 <select id="category-filter">
@@ -48,12 +68,12 @@
             </label>
         </section>
 
-        <section class="progress-area" aria-label="Learning progress">
+        <section id="progress-area" class="progress-area" aria-label="Learning progress">
             <div class="progress-label">
-                <span id="progress-text">0 of 20 icons explored</span>
-                <button id="clear-progress" class="text-button" type="button">Clear progress</button>
+                <span id="progress-text">0 of 40 icons explored</span>
+                <button id="clear-progress" class="text-button" type="button">Clear learning data</button>
             </div>
-            <progress id="learning-progress" value="0" max="20">0 of 20</progress>
+            <progress id="learning-progress" value="0" max="40">0 of 40</progress>
         </section>
 
         <p id="result-status" class="status-message" role="status" aria-live="polite"></p>
@@ -66,33 +86,61 @@
                 <p id="detail-meaning">Its meaning and a practical example will appear here.</p>
                 <p id="detail-example" class="detail-secondary"></p>
                 <p id="detail-caution" class="caution" hidden></p>
-                <button id="read-aloud" class="secondary-button" type="button">Read explanation aloud</button>
+                <div class="button-row">
+                    <button id="read-aloud" class="secondary-button" type="button">Read explanation aloud</button>
+                    <button id="save-review" class="secondary-button" type="button">Save for review</button>
+                    <button id="practice-icon" class="secondary-button" type="button">Practice this icon</button>
+                </div>
             </div>
         </section>
 
-        <section id="practice-detail" class="detail-panel" aria-labelledby="practice-heading" hidden>
-            <div class="large-icon question-icon" aria-hidden="true">?</div>
-            <div class="detail-copy">
-                <p id="practice-number" class="detail-category">Practice question 1</p>
-                <h2 id="practice-heading">Which icon means this?</h2>
-                <p id="practice-prompt"></p>
+        <section id="practice-detail" class="practice-panel" aria-labelledby="practice-heading" hidden>
+            <div id="practice-setup">
+                <h2 id="practice-heading">Choose a practice session</h2>
+                <p>Questions are shuffled. Each question shows four icon choices and there is no timer.</p>
+                <label for="session-length">
+                    Number of questions
+                    <select id="session-length">
+                        <option value="5">5 questions</option>
+                        <option value="10" selected>10 questions</option>
+                        <option value="20">20 questions</option>
+                        <option value="all">All 40 icons</option>
+                    </select>
+                </label>
+                <button id="start-practice" class="primary-button" type="button">Start practice</button>
+            </div>
+
+            <div id="practice-question" hidden>
+                <p id="practice-number" class="detail-category">Question 1 of 10</p>
+                <h2>Which icon means this?</h2>
+                <p id="practice-prompt" class="practice-prompt"></p>
                 <p id="practice-feedback" class="practice-feedback" role="status" aria-live="polite"></p>
                 <button id="next-question" class="secondary-button" type="button" hidden>Next question</button>
             </div>
+
+            <div id="practice-results" hidden>
+                <h2>Practice complete</h2>
+                <p id="results-summary" class="results-summary"></p>
+                <div id="missed-summary"></div>
+                <div class="button-row">
+                    <button id="review-missed" class="secondary-button" type="button" hidden>Review missed icons</button>
+                    <button id="practice-again" class="primary-button" type="button">Practice again</button>
+                </div>
+            </div>
         </section>
 
-        <section aria-labelledby="icon-grid-heading">
+        <section id="icon-choice-section" aria-labelledby="icon-grid-heading">
             <div class="section-heading-row">
                 <h2 id="icon-grid-heading">Icon choices</h2>
                 <span id="visible-count"></span>
             </div>
             <div id="icon-grid" class="icon-grid"></div>
-            <p id="empty-state" class="empty-state" hidden>No icons match that search. Try another word.</p>
+            <p id="empty-state" class="empty-state" hidden>No icons are available here yet. Try another search or save an icon for review.</p>
         </section>
     </main>
 
     <footer>
-        <p>Designed for calm, accessible learning. Progress stays only in this browser.</p>
+        <p>Designed for calm, accessible learning. Learning data and display settings stay only in this browser.</p>
     </footer>
 
     <script src="04_Application/js/icons.js"></script>

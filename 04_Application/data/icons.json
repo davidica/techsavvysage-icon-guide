@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "2.0.0",
   "utility": "TechSavvySage Icon Guide",
   "icons": [
     {
@@ -7,11 +7,20 @@
       "name": "Home",
       "icon": "home",
       "category": "Navigation",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Returns you to the app’s or website’s starting screen.",
       "example": "Use Home when you want to return to the main page without closing the app.",
       "caution": "Home does not usually sign you out or close the app.",
-      "search_terms": ["start", "main", "house", "homepage"],
+      "search_terms": [
+        "start",
+        "main",
+        "house",
+        "homepage"
+      ],
       "audio_text": "The Home icon returns you to the app’s or website’s starting screen."
     },
     {
@@ -19,11 +28,19 @@
       "name": "Back",
       "icon": "back",
       "category": "Navigation",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Returns to the screen or page you just left.",
       "example": "Use Back if you opened the wrong page and want to return to the previous one.",
       "caution": "In a form, going back may remove information that has not been saved.",
-      "search_terms": ["previous", "return", "left arrow"],
+      "search_terms": [
+        "previous",
+        "return",
+        "left arrow"
+      ],
       "audio_text": "The Back icon returns to the screen or page you just left."
     },
     {
@@ -31,11 +48,20 @@
       "name": "Menu",
       "icon": "menu",
       "category": "Navigation",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Opens a list of sections, pages, or choices.",
       "example": "Select Menu to find items such as Profile, Help, Settings, or Sign Out.",
       "caution": "The menu may close when you select outside it; nothing has been deleted.",
-      "search_terms": ["hamburger", "three lines", "choices", "navigation"],
+      "search_terms": [
+        "hamburger",
+        "three lines",
+        "choices",
+        "navigation"
+      ],
       "audio_text": "The Menu icon opens a list of sections, pages, or choices."
     },
     {
@@ -43,11 +69,19 @@
       "name": "Search",
       "icon": "search",
       "category": "Navigation",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Helps you find a person, file, setting, message, or topic.",
       "example": "Select Search, type a word, and review the matching results.",
       "caution": "Search results may include advertisements or unfamiliar websites.",
-      "search_terms": ["find", "magnifying glass", "look up"],
+      "search_terms": [
+        "find",
+        "magnifying glass",
+        "look up"
+      ],
       "audio_text": "The Search icon helps you find a person, file, setting, message, or topic."
     },
     {
@@ -55,11 +89,20 @@
       "name": "More",
       "icon": "more",
       "category": "Navigation",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Opens additional choices that are not currently shown.",
       "example": "Select the three dots to find actions such as Print, Share, Move, or Delete.",
       "caution": "Review the choices before selecting; important actions may be inside this menu.",
-      "search_terms": ["three dots", "ellipsis", "options", "additional"],
+      "search_terms": [
+        "three dots",
+        "ellipsis",
+        "options",
+        "additional"
+      ],
       "audio_text": "The More icon opens additional choices that are not currently shown."
     },
     {
@@ -67,11 +110,19 @@
       "name": "Add",
       "icon": "add",
       "category": "Actions",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Creates or adds something new.",
       "example": "Use Add for a new contact, message, calendar event, file, or browser tab.",
       "caution": "Add does not always save the new item; look for Save or Done afterward.",
-      "search_terms": ["plus", "new", "create"],
+      "search_terms": [
+        "plus",
+        "new",
+        "create"
+      ],
       "audio_text": "The Add icon creates or adds something new."
     },
     {
@@ -79,11 +130,20 @@
       "name": "Edit",
       "icon": "edit",
       "category": "Actions",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Lets you change information that already exists.",
       "example": "Use Edit to revise a contact, note, photograph, or document.",
       "caution": "Look for Save, Apply, or Done so your changes are not lost.",
-      "search_terms": ["pencil", "change", "revise", "modify"],
+      "search_terms": [
+        "pencil",
+        "change",
+        "revise",
+        "modify"
+      ],
       "audio_text": "The Edit icon lets you change information that already exists."
     },
     {
@@ -91,11 +151,20 @@
       "name": "Delete",
       "icon": "delete",
       "category": "Actions",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Removes the selected item.",
       "example": "Use Delete to remove a message, photograph, contact, or file.",
       "caution": "Pause before selecting Delete. Some items can be restored, while others cannot.",
-      "search_terms": ["trash", "remove", "erase", "bin"],
+      "search_terms": [
+        "trash",
+        "remove",
+        "erase",
+        "bin"
+      ],
       "audio_text": "The Delete icon removes the selected item. Pause first because some items cannot be restored."
     },
     {
@@ -103,11 +172,20 @@
       "name": "Share",
       "icon": "share",
       "category": "Actions",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Sends a copy or link to another person or app.",
       "example": "Use Share to send a photo, webpage, document, or contact information.",
       "caution": "Confirm the recipient and the information before sending it.",
-      "search_terms": ["send", "forward", "link", "recipient"],
+      "search_terms": [
+        "send",
+        "forward",
+        "link",
+        "recipient"
+      ],
       "audio_text": "The Share icon sends a copy or link to another person or app. Confirm the recipient before sending."
     },
     {
@@ -115,11 +193,20 @@
       "name": "Download",
       "icon": "download",
       "category": "Files",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Saves a file or item onto your device.",
       "example": "Use Download to save a statement, photograph, document, or application file.",
       "caution": "Download files only from people and websites you trust.",
-      "search_terms": ["save", "down arrow", "file", "device"],
+      "search_terms": [
+        "save",
+        "down arrow",
+        "file",
+        "device"
+      ],
       "audio_text": "The Download icon saves a file or item onto your device. Download only from sources you trust."
     },
     {
@@ -127,11 +214,20 @@
       "name": "Upload",
       "icon": "upload",
       "category": "Files",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Sends a file from your device into an app, website, or cloud service.",
       "example": "Use Upload to add a résumé, photograph, receipt, or supporting document to a website.",
       "caution": "Check that the selected file does not contain information you did not intend to share.",
-      "search_terms": ["send file", "up arrow", "cloud", "website"],
+      "search_terms": [
+        "send file",
+        "up arrow",
+        "cloud",
+        "website"
+      ],
       "audio_text": "The Upload icon sends a file from your device into an app, website, or cloud service."
     },
     {
@@ -139,11 +235,20 @@
       "name": "Attach",
       "icon": "attach",
       "category": "Files",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Adds a file, photograph, or document to a message or form.",
       "example": "Use the paperclip when an email or form asks you to include a document.",
       "caution": "Open the attachment name before sending to confirm you selected the correct file.",
-      "search_terms": ["paperclip", "email", "file", "include"],
+      "search_terms": [
+        "paperclip",
+        "email",
+        "file",
+        "include"
+      ],
       "audio_text": "The Attach icon adds a file, photograph, or document to a message or form."
     },
     {
@@ -151,11 +256,20 @@
       "name": "Settings",
       "icon": "settings",
       "category": "Device",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Opens controls for how an app or device works.",
       "example": "Use Settings to change text size, privacy, sound, display, notifications, or account options.",
       "caution": "Change one setting at a time so it is easier to reverse if needed.",
-      "search_terms": ["gear", "preferences", "controls", "options"],
+      "search_terms": [
+        "gear",
+        "preferences",
+        "controls",
+        "options"
+      ],
       "audio_text": "The Settings icon opens controls for how an app or device works. Change one setting at a time."
     },
     {
@@ -163,11 +277,20 @@
       "name": "Notifications",
       "icon": "notifications",
       "category": "Device",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Shows alerts, reminders, and recent activity.",
       "example": "A dot or number near the bell may mean that an alert is waiting for you.",
       "caution": "An alert is not always urgent. Read it before taking action.",
-      "search_terms": ["bell", "alert", "reminder", "badge"],
+      "search_terms": [
+        "bell",
+        "alert",
+        "reminder",
+        "badge"
+      ],
       "audio_text": "The Notifications icon shows alerts, reminders, and recent activity. An alert is not always urgent."
     },
     {
@@ -175,11 +298,20 @@
       "name": "Wi-Fi",
       "icon": "wifi",
       "category": "Connections",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Shows or manages a wireless internet connection.",
       "example": "More filled curves usually indicate a stronger Wi-Fi connection.",
       "caution": "Public Wi-Fi may not be private. Avoid sensitive activity unless the connection is trusted.",
-      "search_terms": ["internet", "wireless", "network", "connection"],
+      "search_terms": [
+        "internet",
+        "wireless",
+        "network",
+        "connection"
+      ],
       "audio_text": "The Wi-Fi icon shows or manages a wireless internet connection. Public Wi-Fi may not be private."
     },
     {
@@ -187,11 +319,20 @@
       "name": "Lock",
       "icon": "lock",
       "category": "Safety",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Indicates security, privacy, or protected access.",
       "example": "A lock near a website address means the connection between your browser and the website is encrypted.",
       "caution": "A lock does not prove that the website itself is honest or safe.",
-      "search_terms": ["secure", "privacy", "password", "encrypted"],
+      "search_terms": [
+        "secure",
+        "privacy",
+        "password",
+        "encrypted"
+      ],
       "audio_text": "The Lock icon indicates security, privacy, or protected access. It does not prove that a website is trustworthy."
     },
     {
@@ -199,11 +340,21 @@
       "name": "View",
       "icon": "view",
       "category": "Safety",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Shows hidden content or opens a preview.",
       "example": "Near a password field, the eye may temporarily reveal the characters you typed.",
       "caution": "Hide a revealed password before someone else can see the screen.",
-      "search_terms": ["eye", "show", "preview", "password", "reveal"],
+      "search_terms": [
+        "eye",
+        "show",
+        "preview",
+        "password",
+        "reveal"
+      ],
       "audio_text": "The View icon shows hidden content or opens a preview. Hide a revealed password when others can see your screen."
     },
     {
@@ -211,11 +362,20 @@
       "name": "Camera",
       "icon": "camera",
       "category": "Communication",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Opens the camera or lets you add a photograph or video.",
       "example": "Use Camera for a video call, profile photo, document scan, or picture message.",
       "caution": "An app may ask for camera permission. Allow it only when the feature needs the camera.",
-      "search_terms": ["photo", "picture", "video", "scan"],
+      "search_terms": [
+        "photo",
+        "picture",
+        "video",
+        "scan"
+      ],
       "audio_text": "The Camera icon opens the camera or lets you add a photograph or video. Review camera permission requests."
     },
     {
@@ -223,11 +383,21 @@
       "name": "Microphone",
       "icon": "microphone",
       "category": "Communication",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Starts voice input, recording, or speech-to-text.",
       "example": "Use Microphone to dictate a message, speak a search, record audio, or join a call.",
       "caution": "An app may ask for microphone permission. Allow it only when the feature needs to listen.",
-      "search_terms": ["mic", "voice", "record", "dictate", "speech"],
+      "search_terms": [
+        "mic",
+        "voice",
+        "record",
+        "dictate",
+        "speech"
+      ],
       "audio_text": "The Microphone icon starts voice input, recording, or speech-to-text. Review microphone permission requests."
     },
     {
@@ -235,12 +405,442 @@
       "name": "Volume",
       "icon": "volume",
       "category": "Device",
-      "devices": ["Computer", "iPhone", "Android"],
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
       "meaning": "Controls or indicates sound level.",
       "example": "Use Volume to make videos, calls, alerts, or spoken directions louder or quieter.",
       "caution": "A slash through the speaker usually means the sound is muted.",
-      "search_terms": ["sound", "speaker", "mute", "audio", "loud"],
+      "search_terms": [
+        "sound",
+        "speaker",
+        "mute",
+        "audio",
+        "loud"
+      ],
       "audio_text": "The Volume icon controls or indicates sound level. A slash through the speaker usually means muted."
+    },
+    {
+      "id": "close",
+      "name": "Close",
+      "icon": "close",
+      "category": "Navigation",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Closes a window, message, menu, or screen.",
+      "example": "Use Close when you are finished with a pop-up or want to dismiss a screen.",
+      "caution": "Closing a document may prompt you to save changes first.",
+      "search_terms": [
+        "x",
+        "exit",
+        "dismiss",
+        "window"
+      ],
+      "audio_text": "The Close icon closes a window, message, menu, or screen. Save important changes before closing a document."
+    },
+    {
+      "id": "forward",
+      "name": "Forward",
+      "icon": "forward",
+      "category": "Navigation",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Moves to the next page or returns to a page after using Back.",
+      "example": "Use Forward in a browser after going back to the previous page.",
+      "caution": "In messages, a similar arrow may send content to another person.",
+      "search_terms": [
+        "next",
+        "right",
+        "browser",
+        "arrow"
+      ],
+      "audio_text": "The Forward icon moves to the next page or returns to a page after using Back."
+    },
+    {
+      "id": "refresh",
+      "name": "Refresh",
+      "icon": "refresh",
+      "category": "Navigation",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Loads the current page or information again.",
+      "example": "Use Refresh when a webpage looks outdated or did not finish loading.",
+      "caution": "Refreshing a form may clear information you have entered.",
+      "search_terms": [
+        "reload",
+        "update",
+        "again",
+        "circle"
+      ],
+      "audio_text": "The Refresh icon loads the current page or information again. A form may clear when refreshed."
+    },
+    {
+      "id": "save",
+      "name": "Save",
+      "icon": "save",
+      "category": "Files",
+      "devices": [
+        "Computer"
+      ],
+      "meaning": "Stores your current work so you can use it later.",
+      "example": "Use Save after editing a document, spreadsheet, or picture.",
+      "caution": "Check the folder and filename so you can find the saved item later.",
+      "search_terms": [
+        "disk",
+        "store",
+        "keep",
+        "document"
+      ],
+      "audio_text": "The Save icon stores your current work. Check the folder and filename so you can find it later."
+    },
+    {
+      "id": "print",
+      "name": "Print",
+      "icon": "print",
+      "category": "Files",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Sends a document or picture to a printer.",
+      "example": "Use Print when you need a paper copy of a document or confirmation.",
+      "caution": "Review the printer, page count, and number of copies before confirming.",
+      "search_terms": [
+        "paper",
+        "printer",
+        "copy"
+      ],
+      "audio_text": "The Print icon sends a document or picture to a printer. Review the page count and number of copies."
+    },
+    {
+      "id": "folder",
+      "name": "Folder",
+      "icon": "folder",
+      "category": "Files",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Contains files or other folders.",
+      "example": "Open a Folder to find saved documents, photographs, or downloads.",
+      "caution": "Moving or deleting a folder may affect everything stored inside it.",
+      "search_terms": [
+        "directory",
+        "files",
+        "organize",
+        "documents"
+      ],
+      "audio_text": "The Folder icon contains files or other folders. Moving or deleting it may affect everything inside."
+    },
+    {
+      "id": "document",
+      "name": "Document",
+      "icon": "document",
+      "category": "Files",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Represents a file containing text or other information.",
+      "example": "Select Document to open, edit, share, or review a file.",
+      "caution": "Open unexpected documents carefully, especially when received from an unknown sender.",
+      "search_terms": [
+        "file",
+        "page",
+        "paper",
+        "text"
+      ],
+      "audio_text": "The Document icon represents a file containing text or other information. Be careful with unexpected files."
+    },
+    {
+      "id": "play",
+      "name": "Play",
+      "icon": "play",
+      "category": "Media",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Starts a video, recording, song, or animation.",
+      "example": "Use Play to begin watching or listening.",
+      "caution": "Check your volume before starting media in a shared space.",
+      "search_terms": [
+        "start",
+        "video",
+        "music",
+        "triangle"
+      ],
+      "audio_text": "The Play icon starts a video, recording, song, or animation. Check the volume first."
+    },
+    {
+      "id": "pause",
+      "name": "Pause",
+      "icon": "pause",
+      "category": "Media",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Temporarily stops media while keeping your place.",
+      "example": "Use Pause when you want to stop briefly and continue later.",
+      "caution": "Pause does not always stop a live call or microphone.",
+      "search_terms": [
+        "wait",
+        "hold",
+        "video",
+        "music"
+      ],
+      "audio_text": "The Pause icon temporarily stops media while keeping your place."
+    },
+    {
+      "id": "stop",
+      "name": "Stop",
+      "icon": "stop",
+      "category": "Media",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Ends playback, recording, or another active process.",
+      "example": "Use Stop to finish an audio recording or end media playback.",
+      "caution": "Stopping a recording may finish the file and require you to start a new one.",
+      "search_terms": [
+        "end",
+        "square",
+        "recording",
+        "media"
+      ],
+      "audio_text": "The Stop icon ends playback, recording, or another active process."
+    },
+    {
+      "id": "phone",
+      "name": "Phone",
+      "icon": "phone",
+      "category": "Communication",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Starts or represents a telephone or internet call.",
+      "example": "Use Phone to call a contact or join an audio meeting.",
+      "caution": "Confirm the contact before calling or returning an unfamiliar number.",
+      "search_terms": [
+        "call",
+        "telephone",
+        "handset",
+        "dial"
+      ],
+      "audio_text": "The Phone icon starts or represents a call. Confirm the contact before calling an unfamiliar number."
+    },
+    {
+      "id": "message",
+      "name": "Message",
+      "icon": "message",
+      "category": "Communication",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Opens text messages, chat, or a conversation.",
+      "example": "Use Message to read or send a text or chat response.",
+      "caution": "Do not send passwords, verification codes, or sensitive information to unverified contacts.",
+      "search_terms": [
+        "chat",
+        "text",
+        "bubble",
+        "conversation"
+      ],
+      "audio_text": "The Message icon opens text messages or chat. Do not send passwords or verification codes to unverified contacts."
+    },
+    {
+      "id": "send",
+      "name": "Send",
+      "icon": "send",
+      "category": "Communication",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Delivers a message, email, form, or file.",
+      "example": "Use Send after reviewing a message and its recipients.",
+      "caution": "Sending may be difficult to undo. Review the recipient and attachments first.",
+      "search_terms": [
+        "paper plane",
+        "email",
+        "submit",
+        "deliver"
+      ],
+      "audio_text": "The Send icon delivers a message, email, form, or file. Review recipients and attachments first."
+    },
+    {
+      "id": "contacts",
+      "name": "Contacts",
+      "icon": "contacts",
+      "category": "Communication",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Opens saved names, phone numbers, and contact details.",
+      "example": "Use Contacts to find a person before calling or messaging them.",
+      "caution": "Apps may request access to your contacts. Allow it only when needed.",
+      "search_terms": [
+        "people",
+        "address book",
+        "person",
+        "phonebook"
+      ],
+      "audio_text": "The Contacts icon opens saved names and contact details. Review requests for contact access."
+    },
+    {
+      "id": "calendar",
+      "name": "Calendar",
+      "icon": "calendar",
+      "category": "Productivity",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Shows dates, appointments, reminders, and scheduled events.",
+      "example": "Use Calendar to check an appointment or create an event.",
+      "caution": "Review the date, time, time zone, and guests before saving an event.",
+      "search_terms": [
+        "date",
+        "schedule",
+        "appointment",
+        "event"
+      ],
+      "audio_text": "The Calendar icon shows dates and scheduled events. Review the date, time, time zone, and guests."
+    },
+    {
+      "id": "help",
+      "name": "Help",
+      "icon": "help",
+      "category": "Safety",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Opens instructions, support information, or answers to common questions.",
+      "example": "Use Help when you need guidance about an app or website.",
+      "caution": "Use support links inside the official app or website rather than unexpected pop-ups.",
+      "search_terms": [
+        "question",
+        "support",
+        "instructions",
+        "faq"
+      ],
+      "audio_text": "The Help icon opens instructions or support information. Prefer support links inside the official app or website."
+    },
+    {
+      "id": "information",
+      "name": "Information",
+      "icon": "information",
+      "category": "Safety",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Shows additional details about an item, setting, or situation.",
+      "example": "Use Information to learn why a notice appeared or view details about a file.",
+      "caution": "Information explains something but does not always mean it is approved or safe.",
+      "search_terms": [
+        "info",
+        "details",
+        "about",
+        "notice"
+      ],
+      "audio_text": "The Information icon shows additional details about an item, setting, or situation."
+    },
+    {
+      "id": "warning",
+      "name": "Warning",
+      "icon": "warning",
+      "category": "Safety",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Signals that something needs attention before you continue.",
+      "example": "Pause at a Warning icon and read the complete message before choosing an action.",
+      "caution": "Do not let urgent wording pressure you. Close suspicious messages and verify through a trusted source.",
+      "search_terms": [
+        "alert",
+        "danger",
+        "caution",
+        "triangle",
+        "risk"
+      ],
+      "audio_text": "The Warning icon signals that something needs attention. Pause, read the message, and verify suspicious requests."
+    },
+    {
+      "id": "location",
+      "name": "Location",
+      "icon": "location",
+      "category": "Device",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Shows a place or indicates that an app may use your location.",
+      "example": "Use Location for maps, directions, weather, or nearby services.",
+      "caution": "Allow location access only when needed and choose approximate location when sufficient.",
+      "search_terms": [
+        "map",
+        "pin",
+        "gps",
+        "place",
+        "directions"
+      ],
+      "audio_text": "The Location icon shows a place or location access. Allow location only when needed."
+    },
+    {
+      "id": "bluetooth",
+      "name": "Bluetooth",
+      "icon": "bluetooth",
+      "category": "Device",
+      "devices": [
+        "Computer",
+        "iPhone",
+        "Android"
+      ],
+      "meaning": "Connects nearby wireless devices such as headphones, keyboards, or cars.",
+      "example": "Use Bluetooth settings to pair a trusted nearby device.",
+      "caution": "Confirm the device name before pairing and reject unexpected pairing requests.",
+      "search_terms": [
+        "wireless",
+        "pair",
+        "headphones",
+        "device",
+        "car"
+      ],
+      "audio_text": "The Bluetooth icon connects nearby wireless devices. Confirm the device name before pairing."
     }
   ]
 }
