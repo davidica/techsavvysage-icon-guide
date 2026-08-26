@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "utility": "TechSavvySage Icon Guide",
+  "phase": "3A",
+  "record_type": "guided_lessons",
+  "lessons": [
+    {
+      "id": "find-your-way",
+      "order": 1,
+      "title": "Find Your Way",
+      "summary": "Practice the icons that help you move through apps and websites without feeling lost.",
+      "estimated_minutes": 8,
+      "completion_message": "You can now recognize the common controls used to move, search, refresh, and close.",
+      "steps": [
+        {"id":"start-at-home","order":1,"icon_id":"home","heading":"Return to a familiar starting point","instruction":"The Home icon takes you to the main screen of an app or website.","practice_prompt":"Choose Home when you want the main screen without closing the app."},
+        {"id":"go-back","order":2,"icon_id":"back","heading":"Return to the previous screen","instruction":"The Back icon returns to the screen or page you just left.","practice_prompt":"Choose Back after opening the wrong page."},
+        {"id":"move-forward","order":3,"icon_id":"forward","heading":"Move to the next page again","instruction":"The Forward icon moves ahead after you have used Back.","practice_prompt":"Choose Forward to revisit the page that came after the current one."},
+        {"id":"open-menu","order":4,"icon_id":"menu","heading":"Open the main choices","instruction":"The Menu icon reveals sections and actions that are not always visible.","practice_prompt":"Choose Menu to look for Profile, Help, Settings, or Sign Out."},
+        {"id":"find-something","order":5,"icon_id":"search","heading":"Find information","instruction":"The Search icon helps locate people, files, settings, messages, or topics.","practice_prompt":"Choose Search when you know a word but not where the item is stored."},
+        {"id":"see-more","order":6,"icon_id":"more","heading":"Reveal additional choices","instruction":"The More icon opens actions that do not fit on the current screen.","practice_prompt":"Choose More to look for actions such as Print, Share, Move, or Delete."},
+        {"id":"refresh-page","order":7,"icon_id":"refresh","heading":"Load current information again","instruction":"The Refresh icon reloads a page or updates the information shown.","practice_prompt":"Choose Refresh when a page looks outdated or did not finish loading."},
+        {"id":"close-item","order":8,"icon_id":"close","heading":"Dismiss a window or message","instruction":"The Close icon dismisses a screen, window, menu, or message.","practice_prompt":"Choose Close when you are finished with a pop-up."}
+      ]
+    },
+    {
+      "id": "work-with-files",
+      "order": 2,
+      "title": "Work With Files",
+      "summary": "Follow the common actions used to create, organize, save, transfer, and remove files.",
+      "estimated_minutes": 11,
+      "completion_message": "You can now recognize the main icons used to create, store, transfer, share, and remove files.",
+      "steps": [
+        {"id":"add-item","order":1,"icon_id":"add","heading":"Create something new","instruction":"The Add icon begins a new item such as a file, contact, event, or tab.","practice_prompt":"Choose Add to begin creating a new item."},
+        {"id":"edit-item","order":2,"icon_id":"edit","heading":"Change an existing item","instruction":"The Edit icon lets you revise information that already exists.","practice_prompt":"Choose Edit before changing a note, contact, photograph, or document."},
+        {"id":"save-work","order":3,"icon_id":"save","heading":"Keep your changes","instruction":"The Save icon stores the current version of your work.","practice_prompt":"Choose Save after making changes you want to keep."},
+        {"id":"open-folder","order":4,"icon_id":"folder","heading":"Open a container for files","instruction":"The Folder icon contains files and may also contain other folders.","practice_prompt":"Choose Folder to browse organized documents or photographs."},
+        {"id":"open-document","order":5,"icon_id":"document","heading":"Recognize a document","instruction":"The Document icon represents a file containing text or other information.","practice_prompt":"Choose Document when you want to open or review a written file."},
+        {"id":"download-file","order":6,"icon_id":"download","heading":"Bring a file onto your device","instruction":"The Download icon saves a file from a website or service onto your device.","practice_prompt":"Choose Download to keep a trusted file on your device."},
+        {"id":"upload-file","order":7,"icon_id":"upload","heading":"Send a file from your device","instruction":"The Upload icon sends a local file into an app, website, or cloud service.","practice_prompt":"Choose Upload when a trusted website asks you to provide a file."},
+        {"id":"attach-file","order":8,"icon_id":"attach","heading":"Include a file with a message","instruction":"The Attach icon adds a document or photograph to a message or form.","practice_prompt":"Choose Attach to include a file with an email."},
+        {"id":"share-item","order":9,"icon_id":"share","heading":"Send a copy or link","instruction":"The Share icon sends an item or link to another person or app.","practice_prompt":"Choose Share after confirming the item and recipient."},
+        {"id":"print-item","order":10,"icon_id":"print","heading":"Create a paper copy","instruction":"The Print icon sends a document or picture to a selected printer.","practice_prompt":"Choose Print after checking the printer, pages, and number of copies."},
+        {"id":"delete-item","order":11,"icon_id":"delete","heading":"Remove an item","instruction":"The Delete icon removes the selected item and may be difficult to undo.","practice_prompt":"Choose Delete only after confirming that the correct item is selected."}
+      ]
+    },
+    {
+      "id": "communicate-and-use-media",
+      "order": 3,
+      "title": "Communicate and Use Media",
+      "summary": "Recognize the controls used for calls, messages, photographs, sound, and playback.",
+      "estimated_minutes": 10,
+      "completion_message": "You can now identify the common icons used for communication, recording, sound, and media playback.",
+      "steps": [
+        {"id":"find-contact","order":1,"icon_id":"contacts","heading":"Find a saved person","instruction":"The Contacts icon opens saved names, numbers, and contact details.","practice_prompt":"Choose Contacts before calling or messaging a saved person."},
+        {"id":"check-calendar","order":2,"icon_id":"calendar","heading":"Review a date or appointment","instruction":"The Calendar icon shows dates, appointments, reminders, and scheduled events.","practice_prompt":"Choose Calendar to check an appointment or create an event."},
+        {"id":"make-call","order":3,"icon_id":"phone","heading":"Start a call","instruction":"The Phone icon starts or represents a telephone or internet call.","practice_prompt":"Choose Phone to call a confirmed contact."},
+        {"id":"open-message","order":4,"icon_id":"message","heading":"Open a conversation","instruction":"The Message icon opens text messages, chat, or another conversation.","practice_prompt":"Choose Message to read or write a text response."},
+        {"id":"send-message","order":5,"icon_id":"send","heading":"Deliver the message","instruction":"The Send icon delivers a message, email, form, or file.","practice_prompt":"Choose Send only after reviewing the recipient and attachments."},
+        {"id":"use-camera","order":6,"icon_id":"camera","heading":"Take or add a picture","instruction":"The Camera icon opens the camera or adds a photograph or video.","practice_prompt":"Choose Camera for a picture, video call, or document scan."},
+        {"id":"use-microphone","order":7,"icon_id":"microphone","heading":"Use your voice","instruction":"The Microphone icon begins voice input, recording, or speech-to-text.","practice_prompt":"Choose Microphone to dictate, record, or speak a search."},
+        {"id":"adjust-volume","order":8,"icon_id":"volume","heading":"Control sound level","instruction":"The Volume icon makes sound louder, quieter, or muted.","practice_prompt":"Choose Volume before playing media when you need to check the sound level."},
+        {"id":"play-media","order":9,"icon_id":"play","heading":"Start media","instruction":"The Play icon starts a video, recording, song, or animation.","practice_prompt":"Choose Play when you are ready to watch or listen."},
+        {"id":"pause-media","order":10,"icon_id":"pause","heading":"Temporarily hold your place","instruction":"The Pause icon temporarily stops media while keeping your place.","practice_prompt":"Choose Pause when you plan to continue the same media shortly."},
+        {"id":"stop-media","order":11,"icon_id":"stop","heading":"End playback or recording","instruction":"The Stop icon ends playback, recording, or another active process.","practice_prompt":"Choose Stop when you are finished with playback or recording."}
+      ]
+    },
+    {
+      "id": "stay-safe-and-connected",
+      "order": 4,
+      "title": "Stay Safe and Connected",
+      "summary": "Learn the icons that manage device connections, permissions, notices, and safer decisions.",
+      "estimated_minutes": 11,
+      "completion_message": "You can now recognize common connection, permission, information, and safety icons.",
+      "steps": [
+        {"id":"open-settings","order":1,"icon_id":"settings","heading":"Control how the device works","instruction":"The Settings icon opens controls for privacy, sound, display, notifications, and accounts.","practice_prompt":"Choose Settings when you need to change one device or app option."},
+        {"id":"review-notifications","order":2,"icon_id":"notifications","heading":"Review alerts calmly","instruction":"The Notifications icon shows alerts, reminders, and recent activity.","practice_prompt":"Choose Notifications to review an alert before deciding whether it needs action."},
+        {"id":"connect-wifi","order":3,"icon_id":"wifi","heading":"Manage wireless internet","instruction":"The Wi-Fi icon shows or manages a wireless internet connection.","practice_prompt":"Choose Wi-Fi to check or change the current network connection."},
+        {"id":"connect-bluetooth","order":4,"icon_id":"bluetooth","heading":"Connect a nearby device","instruction":"The Bluetooth icon pairs trusted nearby headphones, keyboards, cars, and other devices.","practice_prompt":"Choose Bluetooth after confirming the nearby device name."},
+        {"id":"check-lock","order":5,"icon_id":"lock","heading":"Notice protected access","instruction":"The Lock icon indicates security, privacy, or an encrypted connection.","practice_prompt":"Choose the Lock for security information, while remembering it does not prove a website is honest."},
+        {"id":"control-view","order":6,"icon_id":"view","heading":"Reveal or preview content","instruction":"The View icon shows hidden content or opens a preview.","practice_prompt":"Choose View to check hidden text, then hide sensitive information again."},
+        {"id":"pause-at-warning","order":7,"icon_id":"warning","heading":"Pause before continuing","instruction":"The Warning icon signals that something needs attention before you act.","practice_prompt":"Choose Warning as your cue to stop, read, and verify."},
+        {"id":"open-help","order":8,"icon_id":"help","heading":"Find trusted guidance","instruction":"The Help icon opens instructions, support information, or common answers.","practice_prompt":"Choose Help inside the official app or website when you need guidance."},
+        {"id":"read-information","order":9,"icon_id":"information","heading":"Read additional details","instruction":"The Information icon explains an item, setting, or situation.","practice_prompt":"Choose Information to learn more before making a decision."},
+        {"id":"review-location","order":10,"icon_id":"location","heading":"Manage location use","instruction":"The Location icon shows a place or indicates that an app may use your location.","practice_prompt":"Choose Location for maps or directions and allow access only when needed."}
+      ]
+    }
+  ]
+}
