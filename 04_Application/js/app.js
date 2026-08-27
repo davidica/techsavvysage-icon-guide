@@ -1228,3 +1228,224 @@
 
     document.addEventListener('DOMContentLoaded', initialize);
 }());
+
+// PHASE-5C-START-HERE-BEGIN
+(() => {
+    'use strict';
+
+    const phase5cId = 'phase-5c-start-here';
+    const sessionKey = 'techsavvysage-start-here-seen';
+
+    function createElement(tagName, properties = {}) {
+        const element = document.createElement(tagName);
+        Object.entries(properties).forEach(([name, value]) => {
+            if (name === 'textContent') {
+                element.textContent = value;
+            } else if (name === 'className') {
+                element.className = value;
+            } else {
+                element.setAttribute(name, value);
+            }
+        });
+        return element;
+    }
+
+    function initializeStartHere() {
+        if (document.getElementById(phase5cId)) {
+            return;
+        }
+
+        const learningNavigation = document.querySelector('[aria-label="Learning mode"]');
+        if (!learningNavigation) {
+            return;
+        }
+
+        const startButton = createElement('button', {
+            type: 'button',
+            id: 'start-here-button',
+            textContent: 'Start Here',
+            'aria-haspopup': 'dialog',
+            'aria-expanded': 'false'
+        });
+        learningNavigation.insertBefore(startButton, learningNavigation.firstChild);
+
+        const overlay = createElement('div', {
+            id: phase5cId,
+            className: 'start-here-overlay',
+            hidden: ''
+        });
+        const dialog = createElement('section', {
+            className: 'start-here-dialog',
+            role: 'dialog',
+            'aria-modal': 'true',
+            'aria-labelledby': 'start-here-heading',
+            'aria-describedby': 'start-here-description'
+        });
+        const eyebrow = createElement('p', {
+            className: 'start-here-eyebrow',
+            textContent: 'A calm place to begin'
+        });
+        const heading = createElement('h2', {
+            id: 'start-here-heading',
+            tabindex: '-1',
+            textContent: 'Start Here'
+        });
+        const description = createElement('p', {
+            id: 'start-here-description',
+            textContent: 'Choose the kind of learning that feels right today. There is no timer and no penalty for trying.'
+        });
+        const list = createElement('ol', { className: 'start-here-list' });
+        [
+            ['Learn', 'Explore any of the 40 icons and hear a plain-language explanation.'],
+            ['Lessons', 'Follow a guided set of icon steps, then try a short knowledge check.'],
+            ['Practice', 'Choose the icon that matches a meaning and receive supportive feedback.'],
+            ['Saved for review', 'Return to icons you chose to keep for later.']
+        ].forEach(([title, explanation]) => {
+            const item = createElement('li');
+            const strong = createElement('strong', { textContent: `${title}: ` });
+            item.append(strong, document.createTextNode(explanation));
+            list.appendChild(item);
+        });
+
+        const actions = createElement('div', { className: 'start-here-actions' });
+        const lessonButton = createElement('button', {
+            type: 'button',
+            className: 'primary-button',
+            textContent: 'Start with a lesson'
+        });
+        const learnButton = createElement('button', {
+            type: 'button',
+            className: 'secondary-button',
+            textContent: 'Explore icons'
+        });
+        const closeButton = createElement('button', {
+            type: 'button',
+            className: 'text-button',
+            textContent: 'Close'
+        });
+        actions.append(lessonButton, learnButton, closeButton);
+        dialog.append(eyebrow, heading, description, list, actions);
+        overlay.appendChild(dialog);
+        document.body.appendChild(overlay);
+
+        const pageRegions = Array.from(document.querySelectorAll('header, main, footer'));
+        let priorFocus = null;
+
+        function openDialog() {
+            priorFocus = document.activeElement;
+            overlay.hidden = false;
+            document.body.classList.add('start-here-open');
+            startButton.setAttribute('aria-expanded', 'true');
+            pageRegions.forEach((region) => { region.inert = true; });
+            heading.focus();
+        }
+
+        function closeDialog() {
+            overlay.hidden = true;
+            document.body.classList.remove('start-here-open');
+            startButton.setAttribute('aria-expanded', 'false');
+            pageRegions.forEach((region) => { region.inert = false; });
+            const returnTarget = priorFocus && document.contains(priorFocus)
+                ? priorFocus
+                : startButton;
+            returnTarget.focus();
+        }
+
+        function activateMode(label) {
+            closeDialog();
+            const modeButton = Array.from(learningNavigation.querySelectorAll('button'))
+                .find((button) => button.textContent.trim() === label);
+            if (modeButton) {
+                modeButton.click();
+            }
+        }
+
+        startButton.addEventListener('click', openDialog);
+        closeButton.addEventListener('click', closeDialog);
+        lessonButton.addEventListener('click', () => activateMode('Lessons'));
+        learnButton.addEventListener('click', () => activateMode('Learn'));
+        overlay.addEventListener('click', (event) => {
+            if (event.target === overlay) {
+                closeDialog();
+            }
+        });
+        dialog.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                closeDialog();
+                return;
+            }
+            if (event.key !== 'Tab') {
+                return;
+            }
+            const focusable = Array.from(dialog.querySelectorAll('button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'));
+            if (focusable.length === 0) {
+                return;
+            }
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+            }
+        });
+
+        let showAutomatically = true;
+        try {
+            showAutomatically = sessionStorage.getItem(sessionKey) !== 'true';
+            if (showAutomatically) {
+                sessionStorage.setItem(sessionKey, 'true');
+            }
+        } catch (error) {
+            showAutomatically = false;
+        }
+        if (showAutomatically) {
+            window.setTimeout(openDialog, 0);
+        }
+    }
+
+    function initializeConnectionStatus() {
+        if (document.getElementById('connection-status')) {
+            return;
+        }
+        const status = createElement('p', {
+            id: 'connection-status',
+            className: 'connection-status',
+            role: 'status',
+            'aria-live': 'polite'
+        });
+        status.hidden = true;
+        const main = document.querySelector('main');
+        if (main) {
+            main.insertBefore(status, main.firstChild);
+        }
+        function showStatus(message) {
+            status.textContent = message;
+            status.hidden = false;
+        }
+        window.addEventListener('offline', () => {
+            showStatus('You are offline. Previously loaded learning content remains available.');
+        });
+        window.addEventListener('online', () => {
+            showStatus('Connection restored.');
+            window.setTimeout(() => { status.hidden = true; }, 5000);
+        });
+        if (!navigator.onLine) {
+            showStatus('You are offline. Previously loaded learning content remains available.');
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeStartHere();
+            initializeConnectionStatus();
+        }, { once: true });
+    } else {
+        initializeStartHere();
+        initializeConnectionStatus();
+    }
+})();
+// PHASE-5C-START-HERE-END

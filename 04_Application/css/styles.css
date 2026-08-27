@@ -867,3 +867,104 @@ body.high-contrast {
         justify-content: start;
     }
 }
+
+/* PHASE-5C-HARDENING-BEGIN */
+.start-here-open {
+    overflow: hidden;
+}
+
+.start-here-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    background: rgb(15 23 42 / 72%);
+}
+
+.start-here-overlay[hidden] {
+    display: none;
+}
+
+.start-here-dialog {
+    width: min(42rem, 100%);
+    max-height: calc(100vh - 2rem);
+    overflow: auto;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 2px solid var(--border-color, #64748b);
+    border-radius: 1rem;
+    background: var(--surface-color, #ffffff);
+    color: var(--text-color, #172033);
+    box-shadow: 0 1.5rem 4rem rgb(15 23 42 / 35%);
+}
+
+.start-here-eyebrow {
+    margin: 0 0 0.35rem;
+    font-weight: 700;
+}
+
+.start-here-dialog h2 {
+    margin-top: 0;
+}
+
+.start-here-list {
+    display: grid;
+    gap: 0.75rem;
+    padding-left: 1.5rem;
+}
+
+.start-here-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.connection-status {
+    margin: 0 auto 1rem;
+    padding: 0.75rem 1rem;
+    border: 2px solid currentColor;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+@media (max-width: 320px) {
+    .start-here-overlay {
+        align-items: start;
+        padding: 0.5rem;
+    }
+
+    .start-here-dialog {
+        max-height: calc(100vh - 1rem);
+        padding: 1rem;
+        border-radius: 0.75rem;
+    }
+
+    .start-here-actions,
+    .start-here-actions button {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .start-here-overlay,
+    .start-here-dialog {
+        scroll-behavior: auto;
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+@media (forced-colors: active) {
+    .start-here-overlay {
+        background: Canvas;
+    }
+
+    .start-here-dialog,
+    .connection-status {
+        border-color: CanvasText;
+    }
+}
+/* PHASE-5C-HARDENING-END */
